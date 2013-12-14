@@ -12,12 +12,23 @@ public class PhysicalImage extends SpriteImage {
 	public PhysicalImage (Vector2 position, String name, World world, boolean staticbody, boolean sensor, float friction){
 		super(position, name);
 		BodyType type = BodyType.DynamicBody;
-		float fric = .02f;
 		if(staticbody){
 			type = BodyType.StaticBody;
-			fric = 2f;
 		}
 		body = BodyFactory.CreateSquareBody(world,type ,position.x, position.y , region.getRotatedPackedWidth(), region.getRotatedPackedHeight(), sensor, .005f, 0f, friction );
+    	body.setUserData(this);
+    	body.setSleepingAllowed(staticbody);
+    
+	}
+	
+	
+	public PhysicalImage (Vector2 position, String name, World world, boolean staticbody, boolean sensor, float friction, float density){
+		super(position, name);
+		BodyType type = BodyType.DynamicBody;
+		if(staticbody){
+			type = BodyType.StaticBody;
+		}
+		body = BodyFactory.CreateSquareBody(world,type ,position.x, position.y , region.getRotatedPackedWidth(), region.getRotatedPackedHeight(), sensor, density, 0f, friction );
     	body.setUserData(this);
     	body.setSleepingAllowed(staticbody);
     

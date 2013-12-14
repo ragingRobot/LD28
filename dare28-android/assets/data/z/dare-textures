@@ -3,107 +3,163 @@ z1.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-walk2
+platform
   rotate: false
   xy: 0, 0
+  size: 422, 500
+  orig: 422, 500
+  offset: 0, 0
+  index: -1
+rightButtonDown
+  rotate: false
+  xy: 0, 502
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+rightButton
+  rotate: false
+  xy: 0, 760
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+leftButtonDown
+  rotate: false
+  xy: 424, 0
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+leftButton
+  rotate: false
+  xy: 682, 0
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+jumpButtonDown
+  rotate: false
+  xy: 424, 258
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+jumpButton
+  rotate: false
+  xy: 682, 258
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+walk2
+  rotate: false
+  xy: 258, 502
   size: 142, 169
   orig: 142, 169
   offset: 0, 0
   index: -1
 walk1
   rotate: false
-  xy: 144, 0
+  xy: 258, 760
   size: 142, 169
   orig: 142, 169
   offset: 0, 0
   index: -1
 sadwalk2
   rotate: false
-  xy: 288, 0
+  xy: 424, 516
   size: 142, 169
   orig: 142, 169
   offset: 0, 0
   index: -1
 sadwalk1
   rotate: false
-  xy: 432, 0
+  xy: 424, 687
   size: 142, 169
   orig: 142, 169
   offset: 0, 0
   index: -1
 sadleftwalk2
   rotate: false
-  xy: 576, 0
+  xy: 568, 516
   size: 142, 169
   orig: 142, 169
   offset: 0, 0
   index: -1
 sadleftwalk1
   rotate: false
-  xy: 720, 0
+  xy: 712, 516
   size: 142, 169
   orig: 142, 169
   offset: 0, 0
   index: -1
 leftwalk2
   rotate: false
-  xy: 864, 0
+  xy: 856, 516
   size: 142, 169
   orig: 142, 169
   offset: 0, 0
   index: -1
 leftwalk1
   rotate: false
-  xy: 1008, 0
+  xy: 568, 687
   size: 142, 169
   orig: 142, 169
   offset: 0, 0
   index: -1
 left
   rotate: false
-  xy: 1152, 0
+  xy: 712, 687
   size: 142, 169
   orig: 142, 169
   offset: 0, 0
   index: -1
 player-sad
   rotate: false
-  xy: 1296, 0
-  size: 88, 165
-  orig: 88, 165
+  xy: 424, 858
+  size: 142, 165
+  orig: 142, 165
+  offset: 0, 0
+  index: -1
+leftplayer-sad
+  rotate: false
+  xy: 568, 858
+  size: 142, 165
+  orig: 142, 165
   offset: 0, 0
   index: -1
 player-happy
   rotate: false
-  xy: 1386, 0
+  xy: 712, 858
+  size: 138, 164
+  orig: 138, 164
+  offset: 0, 0
+  index: -1
+leftplayer-happy
+  rotate: false
+  xy: 856, 687
   size: 138, 164
   orig: 138, 164
   offset: 0, 0
   index: -1
 egg
   rotate: false
-  xy: 0, 171
+  xy: 258, 673
   size: 56, 77
   orig: 56, 77
   offset: 0, 0
   index: -1
-platform
-  rotate: false
-  xy: 1526, 0
-  size: 422, 74
-  orig: 422, 74
-  offset: 0, 0
-  index: -1
 box
   rotate: false
-  xy: 58, 171
+  xy: 316, 673
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 egg-broken
   rotate: false
-  xy: 144, 171
+  xy: 258, 931
   size: 95, 53
   orig: 95, 53
   offset: 0, 0

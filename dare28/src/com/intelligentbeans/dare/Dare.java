@@ -6,7 +6,7 @@ public class Dare extends  Game {
 		@Override
 		public void create() {		
 
-			ZTexturePacker.main();
+			//ZTexturePacker.main();
 			
 			//this loads the first game screen
 			setScreen(new DareGameScreen("data/levels/level.json",this));

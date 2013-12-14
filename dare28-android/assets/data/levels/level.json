@@ -1,0 +1,39 @@
+[
+{
+	class: com.intelligentbeans.boilerplate.JSONGameItem,
+	itemType: LevelDetail,
+	background:"data/backgrounds/background.jpg",
+	lights: false,
+
+}
+,
+{
+	class: com.intelligentbeans.boilerplate.JSONGameItem,
+	itemType: Platform,
+	x: 10,
+	y: 0
+}
+
+,
+{
+	class: com.intelligentbeans.boilerplate.JSONGameItem,
+	itemType: Platform,
+	x: 432,
+	y: 0
+}
+
+,
+{
+	class: com.intelligentbeans.boilerplate.JSONGameItem,
+	itemType: Platform,
+	x: 854,
+	y: 0
+}
+,
+{
+	class: com.intelligentbeans.boilerplate.JSONGameItem,
+	itemType: Player,
+	x: 100,
+	y: 400
+}
+]

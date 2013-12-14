@@ -1,0 +1,110 @@
+
+z1.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+walk2
+  rotate: false
+  xy: 0, 0
+  size: 142, 169
+  orig: 142, 169
+  offset: 0, 0
+  index: -1
+walk1
+  rotate: false
+  xy: 144, 0
+  size: 142, 169
+  orig: 142, 169
+  offset: 0, 0
+  index: -1
+sadwalk2
+  rotate: false
+  xy: 288, 0
+  size: 142, 169
+  orig: 142, 169
+  offset: 0, 0
+  index: -1
+sadwalk1
+  rotate: false
+  xy: 432, 0
+  size: 142, 169
+  orig: 142, 169
+  offset: 0, 0
+  index: -1
+sadleftwalk2
+  rotate: false
+  xy: 576, 0
+  size: 142, 169
+  orig: 142, 169
+  offset: 0, 0
+  index: -1
+sadleftwalk1
+  rotate: false
+  xy: 720, 0
+  size: 142, 169
+  orig: 142, 169
+  offset: 0, 0
+  index: -1
+leftwalk2
+  rotate: false
+  xy: 864, 0
+  size: 142, 169
+  orig: 142, 169
+  offset: 0, 0
+  index: -1
+leftwalk1
+  rotate: false
+  xy: 1008, 0
+  size: 142, 169
+  orig: 142, 169
+  offset: 0, 0
+  index: -1
+left
+  rotate: false
+  xy: 1152, 0
+  size: 142, 169
+  orig: 142, 169
+  offset: 0, 0
+  index: -1
+player-sad
+  rotate: false
+  xy: 1296, 0
+  size: 88, 165
+  orig: 88, 165
+  offset: 0, 0
+  index: -1
+player-happy
+  rotate: false
+  xy: 1386, 0
+  size: 138, 164
+  orig: 138, 164
+  offset: 0, 0
+  index: -1
+egg
+  rotate: false
+  xy: 0, 171
+  size: 56, 77
+  orig: 56, 77
+  offset: 0, 0
+  index: -1
+platform
+  rotate: false
+  xy: 1526, 0
+  size: 422, 74
+  orig: 422, 74
+  offset: 0, 0
+  index: -1
+box
+  rotate: false
+  xy: 58, 171
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+egg-broken
+  rotate: false
+  xy: 144, 171
+  size: 95, 53
+  orig: 95, 53
+  offset: 0, 0
+  index: -1

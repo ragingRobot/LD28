@@ -1,6 +1,7 @@
 package com.intelligentbeans.dare;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -19,8 +20,7 @@ import com.intelligentbeans.boilerplate.*;
 public class DareGameScreen extends GameScreen {
 	Player player;
 	private List<Platform> platformsl;
-	private List<Spikes> spikesl;
-	private List<Block> blocks;
+	private List<PhysicalImage> obstacles;
 	private ImageButton resetbutton;
 	int platformCount =0;
 	boolean followPlayer = true;
@@ -51,20 +51,20 @@ public class DareGameScreen extends GameScreen {
 		}else if(item.getItemType().equals("Block")){
 			Block block = new Block(new Vector2(item.getX(),item.getY()), world);
 			
-			if(this.blocks == null){
-				this.blocks = new LinkedList<Block>();
+			if(this.obstacles == null){
+				this.obstacles = new LinkedList<PhysicalImage>();
 			}
 			stage.addActor(block);
-			blocks.add(block);
+			obstacles.add(block);
 			//Gdx.app.log("test","" + platforms.size);
 		}else if(item.getItemType().equals("Spikes")){
 			Spikes spikes = new Spikes(new Vector2(item.getX(),item.getY()), world);
 			
-			if(this.spikesl == null){
-				this.spikesl = new LinkedList<Spikes>();
+			if(this.obstacles == null){
+				this.obstacles = new LinkedList<PhysicalImage>();
 			}
 			stage.addActor(spikes);
-			spikesl.add(spikes);
+			obstacles.add(spikes);
 			//Gdx.app.log("test","" + platforms.size);
 		}
 
@@ -212,13 +212,27 @@ public class DareGameScreen extends GameScreen {
 	public void render(float delta) {
 		super.render(delta);
 		
+		if(player.getX() > obstacles.get(0).getX() + Gdx.graphics.getWidth() + (200 * obstacles.size())){
+			
+			PhysicalImage firstObstacle = obstacles.remove(0);
+			firstObstacle.body.setTransform((float) ((player.getX() +  Math.random()*2000 + 1000) * GameScreen.WORLD_TO_BOX), firstObstacle.body.getPosition().y, firstObstacle.body.getAngle());
+			obstacles.add(firstObstacle);
+			
+			if(firstObstacle instanceof Block){
+				Random random = new Random();
+				((Block) firstObstacle).setMoving(random.nextBoolean());
+			}
+		}
+		
 		
 		if(platformsl.size() > 4){
-			
+			//right trigger
 			if(player.getX() > platformsl.get(4).getX()){
 				Platform first = platformsl.remove(0);
 				first.body.setTransform(platformsl.get(platformsl.size()-1).body.getPosition().x + (422 * GameScreen.WORLD_TO_BOX), first.body.getPosition().y, first.body.getAngle());
 				platformsl.add(first);
+				
+			
 			}
 		}
 		

@@ -209,9 +209,9 @@ public class GameScreen implements Screen, ContactListener {
 		loading.draw();
 
 		
-		
+	
 		// this renders the physics debugger.
-		debugRenderer.render(world, camera.combined);
+		//debugRenderer.render(world, camera.combined);
 
 		
 		// this steps the physics engine

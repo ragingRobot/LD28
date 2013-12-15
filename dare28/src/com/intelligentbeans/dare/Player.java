@@ -55,7 +55,7 @@ public class Player extends PhysicalImage{
 		  // Create a bodyShape shape and set its radius to 6
         PolygonShape bottombodyShape = new PolygonShape();
 
-        bottombodyShape.setAsBox(10 * GameScreen.WORLD_TO_BOX , 55 * GameScreen.WORLD_TO_BOX , new Vector2(posX,posY),0); 
+        bottombodyShape.setAsBox(2 * GameScreen.WORLD_TO_BOX , 55 * GameScreen.WORLD_TO_BOX , new Vector2(posX,posY),0); 
        
 
        
@@ -270,6 +270,7 @@ public class Player extends PhysicalImage{
     		   bottomSensor.getBody().applyForceToCenter(0f, 4f, true);
     	   }else{
     		   jumpDown = false;
+    		   
     	   }
        }
        

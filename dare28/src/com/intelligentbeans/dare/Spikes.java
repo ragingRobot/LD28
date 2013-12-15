@@ -8,12 +8,13 @@ import com.intelligentbeans.boilerplate.PhysicalImage;
 public class Spikes extends PhysicalImage implements EggBreaker{
 	public Spikes(Vector2 position, World world) {	
     	super(position,"spikes",world, true, false, 2);
-    
+    	updateX(position.x);
+    	
      		
     }
 	
 	public void updateX(float newX){
-		body.setTransform((newX + 50) * GameScreen.WORLD_TO_BOX, getY() * GameScreen.WORLD_TO_BOX, body.getAngle());
+		body.setTransform((newX) * GameScreen.WORLD_TO_BOX, getY() * GameScreen.WORLD_TO_BOX, body.getAngle());
 		
 	}
 	
@@ -29,7 +30,7 @@ public class Spikes extends PhysicalImage implements EggBreaker{
 	public void act(float delta) {
 		super.act(delta);
 		
-		setX(Math.round((body.getPosition().x * GameScreen.BOX_TO_WORLD) - (getWidth())/2) - 50);
+		setX(Math.round((body.getPosition().x * GameScreen.BOX_TO_WORLD) - (getWidth())/2));
 		setY(Math.round((body.getPosition().y* GameScreen.BOX_TO_WORLD) - (getHeight())/2));
 		
 	}

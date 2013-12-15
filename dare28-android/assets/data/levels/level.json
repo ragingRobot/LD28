@@ -51,12 +51,7 @@
 }
 
 ,
-{
-	class: com.intelligentbeans.boilerplate.JSONGameItem,
-	itemType: Block,
-	x: 1500,
-	y: 490
-},
+
 {
 	class: com.intelligentbeans.boilerplate.JSONGameItem,
 	itemType: Spikes,
@@ -64,6 +59,38 @@
 	y: 273
 }
 ,
+{
+	class: com.intelligentbeans.boilerplate.JSONGameItem,
+	itemType: Block,
+	x: 2000,
+	y: 490
+},
+{
+	class: com.intelligentbeans.boilerplate.JSONGameItem,
+	itemType: Spikes,
+	x: 2800,
+	y: 273
+}
+
+,
+{
+	class: com.intelligentbeans.boilerplate.JSONGameItem,
+	itemType: Spikes,
+	x: 3500,
+	y: 273
+}
+,{
+	class: com.intelligentbeans.boilerplate.JSONGameItem,
+	itemType: Block,
+	x: 4200,
+	y: 490
+},
+{
+	class: com.intelligentbeans.boilerplate.JSONGameItem,
+	itemType: Block,
+	x: 4800,
+	y: 490
+},
 {
 	class: com.intelligentbeans.boilerplate.JSONGameItem,
 	itemType: Player,

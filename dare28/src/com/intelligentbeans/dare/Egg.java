@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.WorldManifold;
 import com.badlogic.gdx.utils.Array;
 import com.intelligentbeans.boilerplate.GameScreen;
 import com.intelligentbeans.boilerplate.PhysicalImage;
+import com.intelligentbeans.boilerplate.SoundManager;
 
 public class Egg  extends PhysicalImage{
 	 public World world;
@@ -36,6 +37,8 @@ public class Egg  extends PhysicalImage{
 				breakY = Math.round((body.getPosition().y/GameScreen.WORLD_TO_BOX) - (getHeight())/2) - 30;
 				body.getFixtureList().first().setSensor(true);
 				broken = true;
+				SoundManager.getInstance().stopSong();
+				SoundManager.getInstance().playSound("data/sounds/death.mp3");
 			}
 		
 		}

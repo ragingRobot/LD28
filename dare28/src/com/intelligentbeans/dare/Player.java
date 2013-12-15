@@ -20,29 +20,32 @@ import com.intelligentbeans.boilerplate.PhysicalImage;
 
 public class Player extends PhysicalImage{
 	final static float MAX_VELOCITY = 2f;	
-	final static float MAX_JUMP = 3f;
+	final static float MAX_JUMP = 4f;
 	private static final int WALK_CYCLE = 2;
 	private Fixture bottomSensor;
 	private Fixture eggholderSensor;
     public Boolean jumpDown =false;
-    public Boolean rightDown = true;
+    public Boolean rightDown = false;
     public Boolean leftDown = false;
     public boolean leftbuttonpressed = false;
     public boolean jumpbuttonpressed = false;
     private ParticalActor particals;
     public Egg egg;
     public World world;
-    public Boolean walking = false;
+    public Boolean walking = true;
 	private int frameCount = 0;
 	private String direction = "walk";
 	private String sad ="";
 	private Stage stage;
 	private String directionmoving = "";
 	private Vector2 deathPos;
-	public Player(Vector2 position,  World world, Stage stage){
+	private DareGameScreen gameScreen;
+	boolean started = false;
+	public Player(Vector2 position,  World world, Stage stage, DareGameScreen screen){
 		super(position, "player-happy",world, false, true,.2f);
+		this.gameScreen = screen;
 		this.world = world;
-		egg = new Egg(new  Vector2(position.x + 195,position.y + region.getRegionHeight()),world);
+		egg = new Egg(new  Vector2(position.x + 55,position.y + region.getRegionHeight()),world);
 		this.stage= stage;
 
 		
@@ -163,8 +166,9 @@ public class Player extends PhysicalImage{
 		}
 		
 		if(Gdx.input.isKeyPressed(Keys.SPACE) || jumpbuttonpressed){
-			
-			jumpDown = true;
+			if(started){
+				jumpDown = true;
+			}
 		}else{
 			jumpDown = false;
 			
@@ -263,12 +267,18 @@ public class Player extends PhysicalImage{
     /*************************************************************************************
 	 * This makes the player jump if they are on the ground
 	 *************************************************************************************/
+    boolean resetJump = true;
     public void jump(){
-       if(isGrounded()){
+       if(isGrounded() && !egg.broken){
     	   Vector2 vel = body.getLinearVelocity();
-    	   if(vel.y < MAX_JUMP ){
-    		   bottomSensor.getBody().applyForceToCenter(0f, 4f, true);
+    	   if(vel.y < MAX_JUMP  && resetJump){
+    		   bottomSensor.getBody().applyForceToCenter(0f, 6f, true);
+    	   }if(vel.y >= MAX_JUMP  && resetJump){
+    		   resetJump = false;
+    	   }else if (!resetJump && vel.y < MAX_JUMP/5){
+    		   resetJump = true;
     	   }else{
+    
     		   jumpDown = false;
     		   
     	   }

@@ -31,6 +31,19 @@ public class SoundManager {
 		
 	}
 	
+	public void stopSong(){
+		
+		
+			if(music != null ){
+				music.stop(); 
+				music.dispose();
+				music = null;
+			}
+			currentSong="";
+			
+		
+	}
+	
 public void playSound(String fileHandle){
 		if(fileHandle == "gun.mp3"){
 			if(gunsound == null){

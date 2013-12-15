@@ -6,6 +6,7 @@ import java.util.Random;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Application.ApplicationType;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
@@ -16,6 +17,8 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.Timer.Task;
 import com.intelligentbeans.boilerplate.*;
 public class DareGameScreen extends GameScreen {
 	Player player;
@@ -25,10 +28,34 @@ public class DareGameScreen extends GameScreen {
 	int platformCount =0;
 	boolean followPlayer = true;
 	Game game;
+	SpriteImage intro;
+	boolean started = false;
 	public DareGameScreen(String level, Game game) {
 		super(level, game);
 		this.game = game;
-	
+		
+		if(Gdx.app.getType() == ApplicationType.Android) {
+			intro = new SpriteImage(new Vector2((Gdx.graphics.getWidth()/2)-200, Gdx.graphics.getHeight() - 600),"intro-mobile");
+			intro.addListener(new InputListener() {
+				public boolean touchDown(InputEvent event, float x, float y,int pointer, int button) {
+					start();
+					return true;
+				}
+
+				public void touchUp(InputEvent event, float x, float y,int pointer, int button) {
+					
+				}
+
+			});
+		}else{
+			intro = new SpriteImage(new Vector2((Gdx.graphics.getWidth()/2)-200, Gdx.graphics.getHeight() - 600),"intro");
+		}
+		intro.setX((Gdx.graphics.getWidth()/2)- (intro.getWidth()/2));
+		intro.setY((Gdx.graphics.getHeight()/2) - (intro.getHeight()/2));
+		staticStage.addActor(intro);
+		
+		
+		SoundManager.getInstance().loadSong("data/sounds/test.mp3");
 	}
 	
 	@Override
@@ -36,7 +63,7 @@ public class DareGameScreen extends GameScreen {
 		
 		
 		if (item.getItemType().equals("Player")) {
-			player = new Player(new Vector2(item.getX(),item.getY()), world,stage);
+			player = new Player(new Vector2(item.getX(),item.getY()), world,stage, this);
 			stage.addActor(player);
 			player.addEgg();
 		}else if(item.getItemType().equals("Platform")){
@@ -82,6 +109,8 @@ public class DareGameScreen extends GameScreen {
 	public void resize(int width, int height) {
 		super.resize(width, height);
 		resetbutton.setBounds(Gdx.graphics.getWidth() - 177 - 30, Gdx.graphics.getHeight() - 60 - 30, 177, 60);
+		intro.setX((Gdx.graphics.getWidth()/2)- (intro.getWidth()/2));
+		intro.setY((Gdx.graphics.getHeight()/2) - (intro.getHeight()/2));
 		
 
 	}
@@ -126,7 +155,7 @@ public class DareGameScreen extends GameScreen {
 		resetbutton = new ImageButton(resetup, resetdown);
 
 		button.setBounds(Gdx.graphics.getWidth() - 128 - 20, 15, 128, 128);
-		leftbutton.setBounds(20, 15, 128, 128);
+		leftbutton.setBounds(20, 15, 226, 226);
 		rightbutton.setBounds(30, 5, 128, 128);
 		resetbutton.setBounds(Gdx.graphics.getWidth() - 177 - 30, Gdx.graphics.getHeight() - 60 - 30, 177, 60);
 		// table.add(button);
@@ -200,17 +229,38 @@ public class DareGameScreen extends GameScreen {
 		}
 		
 		staticStage.addActor(resetbutton);
+		resetbutton.setVisible(false);
 
 	}
 	
 	public void reset(){
-		
+		SoundManager.getInstance().stopSong();
 		game.setScreen(new DareGameScreen("data/levels/level.json",game));
 	}
-	
+	public void start(){
+		intro.setVisible(false);
+		player.rightDown = true;
+		started = true;
+		
+		float delay = .5f; // seconds
+
+		Timer.schedule(new Task(){
+		    @Override
+		    public void run() {
+		    	player.started = true;
+		    	resetbutton.setVisible(true);
+		    }
+		}, delay);
+	}
 	@Override
 	public void render(float delta) {
 		super.render(delta);
+		
+		
+		if(!started && Gdx.input.isKeyPressed(Keys.SPACE)){
+			start();
+			
+		}
 		
 		if(player.getX() > obstacles.get(0).getX() + Gdx.graphics.getWidth() + (200 * obstacles.size())){
 			

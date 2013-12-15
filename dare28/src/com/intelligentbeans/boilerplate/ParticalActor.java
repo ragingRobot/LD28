@@ -47,7 +47,7 @@ public class ParticalActor extends SpriteImage{
 		particleEffect = new ParticleEffect();
 		particleEffect.load(Gdx.files.internal(particles),Gdx.files.internal("data"));
 
-		float pScale = 0.01f;
+		float pScale = 2;
 
 		float scaling = particleEffect.getEmitters().get(0).getScale().getHighMax();
 		particleEffect.getEmitters().get(0).getScale().setHigh(scaling * pScale);
@@ -80,6 +80,8 @@ public class ParticalActor extends SpriteImage{
 	@Override
 	public void act(float delta) {
 		super.act(delta);
+		setX(x);
+		setY(y);
 		particleEffect.setPosition(x, y);
 		particleEffect.update(delta);
 

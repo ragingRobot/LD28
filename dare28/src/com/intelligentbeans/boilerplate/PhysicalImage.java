@@ -34,7 +34,15 @@ public class PhysicalImage extends SpriteImage {
     
 	}
 	
+	public void updateX(float newX){
+		body.setTransform(newX * GameScreen.WORLD_TO_BOX, getY() * GameScreen.WORLD_TO_BOX, body.getAngle());
+		
+	}
 	
+	public void updateY(float newY){
+		body.setTransform(getX() * GameScreen.WORLD_TO_BOX, newY * GameScreen.WORLD_TO_BOX, body.getAngle());
+		
+	}
 	 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//GAME LOOP STUFF	
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
@@ -46,8 +54,8 @@ public class PhysicalImage extends SpriteImage {
 	public void act(float delta) {
 		super.act(delta);
 		
-		setX(Math.round((body.getPosition().x/GameScreen.WORLD_TO_BOX) - (getWidth())/2));
-		setY(Math.round((body.getPosition().y/GameScreen.WORLD_TO_BOX) - (getHeight())/2));
+		setX(Math.round((body.getPosition().x * GameScreen.BOX_TO_WORLD) - (getWidth())/2));
+		setY(Math.round((body.getPosition().y* GameScreen.BOX_TO_WORLD) - (getHeight())/2));
 		
 	}
    

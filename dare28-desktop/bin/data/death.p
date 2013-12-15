@@ -5,12 +5,12 @@ active: false
 lowMin: 300.0
 lowMax: 300.0
 - Count - 
-min: 6
+min: 8
 max: 200
 - Emission - 
 lowMin: 16.0
 lowMax: 16.0
-highMin: 80.0
+highMin: 88.0
 highMax: 120.0
 relative: false
 scalingCount: 1
@@ -112,7 +112,7 @@ colors5: 0.0
 colors6: 1.0
 colors7: 0.0
 colors8: 0.0
-colors9: 0.5372549
+colors9: 0.32156864
 colors10: 0.0
 colors11: 0.0
 colors12: 0.8235294
@@ -121,8 +121,8 @@ colors14: 0.8235294
 timelineCount: 5
 timeline0: 0.0
 timeline1: 0.3126177
-timeline2: 0.700565
-timeline3: 0.84934086
+timeline2: 0.7740113
+timeline3: 0.8079096
 timeline4: 1.0
 - Transparency - 
 lowMin: 0.0
@@ -132,15 +132,15 @@ highMax: 1.0
 relative: false
 scalingCount: 2
 scaling0: 1.0
-scaling1: 0.0
+scaling1: 1.0
 timelineCount: 2
 timeline0: 0.0
-timeline1: 1.0
+timeline1: 0.9726027
 - Options - 
 attached: false
 continuous: false
 aligned: false
-additive: true
+additive: false
 behind: false
 - Image Path -
-C:\Users\jmilstead\Documents\GitHub\libgdxStuff\commander-z-android\assets\data\particle.png
+C:\Users\jmilstead\git\Dare\dare28-android\assets\data\particle.png

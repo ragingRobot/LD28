@@ -33,21 +33,21 @@ leftButtonDown
   index: -1
 leftButton
   rotate: false
-  xy: 682, 0
+  xy: 424, 258
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 jumpButtonDown
   rotate: false
-  xy: 424, 258
+  xy: 424, 516
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 jumpButton
   rotate: false
-  xy: 682, 258
+  xy: 682, 0
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -68,77 +68,77 @@ walk1
   index: -1
 sadwalk2
   rotate: false
-  xy: 424, 516
+  xy: 424, 774
   size: 142, 169
   orig: 142, 169
   offset: 0, 0
   index: -1
 sadwalk1
   rotate: false
-  xy: 424, 687
+  xy: 682, 258
   size: 142, 169
   orig: 142, 169
   offset: 0, 0
   index: -1
 sadleftwalk2
   rotate: false
-  xy: 568, 516
+  xy: 682, 429
   size: 142, 169
   orig: 142, 169
   offset: 0, 0
   index: -1
 sadleftwalk1
   rotate: false
-  xy: 712, 516
+  xy: 682, 600
   size: 142, 169
   orig: 142, 169
   offset: 0, 0
   index: -1
 leftwalk2
   rotate: false
-  xy: 856, 516
+  xy: 682, 771
   size: 142, 169
   orig: 142, 169
   offset: 0, 0
   index: -1
 leftwalk1
   rotate: false
-  xy: 568, 687
+  xy: 940, 0
   size: 142, 169
   orig: 142, 169
   offset: 0, 0
   index: -1
 left
   rotate: false
-  xy: 712, 687
+  xy: 940, 171
   size: 142, 169
   orig: 142, 169
   offset: 0, 0
   index: -1
 player-sad
   rotate: false
-  xy: 424, 858
+  xy: 940, 342
   size: 142, 165
   orig: 142, 165
   offset: 0, 0
   index: -1
 leftplayer-sad
   rotate: false
-  xy: 568, 858
+  xy: 940, 509
   size: 142, 165
   orig: 142, 165
   offset: 0, 0
   index: -1
 player-happy
   rotate: false
-  xy: 712, 858
+  xy: 940, 676
   size: 138, 164
   orig: 138, 164
   offset: 0, 0
   index: -1
 leftplayer-happy
   rotate: false
-  xy: 856, 687
+  xy: 940, 842
   size: 138, 164
   orig: 138, 164
   offset: 0, 0
@@ -157,10 +157,38 @@ box
   orig: 64, 64
   offset: 0, 0
   index: -1
-egg-broken
+resetButtonDown
+  rotate: false
+  xy: 1084, 0
+  size: 177, 59
+  orig: 177, 59
+  offset: 0, 0
+  index: -1
+resetButton
+  rotate: false
+  xy: 1263, 0
+  size: 177, 59
+  orig: 177, 59
+  offset: 0, 0
+  index: -1
+spikes
   rotate: false
   xy: 258, 931
+  size: 142, 55
+  orig: 142, 55
+  offset: 0, 0
+  index: -1
+egg-broken
+  rotate: false
+  xy: 424, 945
   size: 95, 53
   orig: 95, 53
+  offset: 0, 0
+  index: -1
+block
+  rotate: false
+  xy: 258, 988
+  size: 96, 34
+  orig: 96, 34
   offset: 0, 0
   index: -1

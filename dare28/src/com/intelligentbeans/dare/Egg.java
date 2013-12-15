@@ -14,7 +14,7 @@ public class Egg  extends PhysicalImage{
 	 public int breakX = 0;
 	 public int breakY = 0;
 	public Egg(Vector2 position,  World world){
-		super(position, "egg",world, false, false, 5, .0002f);
+		super(position, "egg",world, false, false, 10, .002f);
 		this.world = world;
 	}
 	
@@ -65,7 +65,7 @@ public class Egg  extends PhysicalImage{
 
                         if(below) { 
                         	
-                        	if(contact.getFixtureA().getBody().getUserData() instanceof Platform || contact.getFixtureB().getBody().getUserData() instanceof Platform )
+                        	if(contact.getFixtureA().getBody().getUserData() instanceof EggBreaker || contact.getFixtureB().getBody().getUserData() instanceof EggBreaker )
                                 return true;                    
                         }
 

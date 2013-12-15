@@ -31,6 +31,7 @@ public class GameScreen implements Screen, ContactListener {
 	// STATIC PROPERTIES
 	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static final float WORLD_TO_BOX = 0.01f;
+	public static final float BOX_TO_WORLD = 100f;
 
 	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// PRIVATE/PROTECTED STUFF
@@ -99,6 +100,7 @@ public class GameScreen implements Screen, ContactListener {
 	@Override
 	public void resize(int width, int height) {
 		stage.setViewport(width , height , false);
+		staticStage.setViewport(width , height , false);
 
 	}
 

@@ -12,6 +12,9 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.Timer.Task;
+import com.intelligentbeans.boilerplate.ParticalActor;
 import com.intelligentbeans.boilerplate.GameScreen;
 import com.intelligentbeans.boilerplate.PhysicalImage;
 
@@ -20,10 +23,13 @@ public class Player extends PhysicalImage{
 	final static float MAX_JUMP = 3f;
 	private static final int WALK_CYCLE = 2;
 	private Fixture bottomSensor;
-	
+	private Fixture eggholderSensor;
     public Boolean jumpDown =false;
-    public Boolean rightDown = false;
+    public Boolean rightDown = true;
     public Boolean leftDown = false;
+    public boolean leftbuttonpressed = false;
+    public boolean jumpbuttonpressed = false;
+    private ParticalActor particals;
     public Egg egg;
     public World world;
     public Boolean walking = false;
@@ -32,10 +38,11 @@ public class Player extends PhysicalImage{
 	private String sad ="";
 	private Stage stage;
 	private String directionmoving = "";
+	private Vector2 deathPos;
 	public Player(Vector2 position,  World world, Stage stage){
 		super(position, "player-happy",world, false, true,.2f);
 		this.world = world;
-		egg = new Egg(new  Vector2(position.x + 50,position.y + region.getRegionHeight()),world);
+		egg = new Egg(new  Vector2(position.x + 195,position.y + region.getRegionHeight()),world);
 		this.stage= stage;
 
 		
@@ -43,11 +50,12 @@ public class Player extends PhysicalImage{
 		
 		
 		
-		float posX =0;
-		float posY =  -(region.getRegionHeight() * GameScreen.WORLD_TO_BOX / 4);
+		float posX = 30 *GameScreen.WORLD_TO_BOX;
+		float posY =  - 27* GameScreen.WORLD_TO_BOX;
 		  // Create a bodyShape shape and set its radius to 6
         PolygonShape bottombodyShape = new PolygonShape();
-        bottombodyShape.setAsBox(region.getRegionWidth() * GameScreen.WORLD_TO_BOX /4, region.getRegionHeight() * GameScreen.WORLD_TO_BOX / 4, new Vector2(posX,posY),0); 
+
+        bottombodyShape.setAsBox(10 * GameScreen.WORLD_TO_BOX , 55 * GameScreen.WORLD_TO_BOX , new Vector2(posX,posY),0); 
        
 
        
@@ -70,6 +78,57 @@ public class Player extends PhysicalImage{
         // Remember to dispose of any shapes after you're done with them!
         // BodyDef and FixtureDef don't need disposing, but shapes do.
         bottombodyShape.dispose();
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        posX =  0;
+		posY =  10 * GameScreen.WORLD_TO_BOX;
+        
+        
+        // Create a bodyShape shape and set its radius to 6
+        PolygonShape eggholderbodyShape = new PolygonShape();
+        eggholderbodyShape.setAsBox( .1f * GameScreen.WORLD_TO_BOX, 20 * GameScreen.WORLD_TO_BOX , new Vector2(posX,posY),0); 
+       
+
+       
+
+     // Create a fixture definition to apply our shape to
+        FixtureDef eggholderfixtureDef = new FixtureDef();
+        eggholderfixtureDef.shape = eggholderbodyShape;
+        eggholderfixtureDef.density = 0f; 
+        eggholderfixtureDef.friction = 0f;
+        eggholderfixtureDef.restitution = 0.2f; // Make it bounce a little bit
+        //bottomfixtureDef.isSensor = true;
+        
+        
+   
+        
+     // Create our fixture and attach it to the body
+        eggholderSensor = body.createFixture(eggholderfixtureDef);
+       
+        
+        // Remember to dispose of any shapes after you're done with them!
+        // BodyDef and FixtureDef don't need disposing, but shapes do.
+        eggholderbodyShape.dispose();
+        
+        
+        
+        particals = new ParticalActor("data/death.p");
+        stage.addActor(particals);
 		
 	}
 	
@@ -92,26 +151,44 @@ public class Player extends PhysicalImage{
 		Vector2 vel = bottomSensor.getBody().getLinearVelocity();
 		Vector2 pos = bottomSensor.getBody().getPosition();
 		
-	
-   	
+		//(Gdx.input.isKeyPressed(Keys.A)
+			//	(Gdx.input.isKeyPressed(Keys.D)
 	   	// apply left impulse, but only if max velocity is not reached yet
-	   	if((Gdx.input.isKeyPressed(Keys.A)|| leftDown) && vel.x > -MAX_VELOCITY) {
-	   		bottomSensor.getBody().applyLinearImpulse(-.02f, 0, pos.x, pos.y, true);
-	   		direction = "leftwalk";
-	   		walking = true;
-	   		directionmoving = "left";
-	   	} else if((Gdx.input.isKeyPressed(Keys.D)|| rightDown) && vel.x < MAX_VELOCITY) {
+		
+		
+		if(Gdx.input.isKeyPressed(Keys.A) || leftbuttonpressed){
+			leftDown = true;
+		}else{
+			leftDown = false;
+		}
+		
+		if(Gdx.input.isKeyPressed(Keys.SPACE) || jumpbuttonpressed){
+			
+			jumpDown = true;
+		}else{
+			jumpDown = false;
+			
+		}
+		
+		
+	   	if(leftDown && vel.x > 0) {
+	   		
+	   		if(!egg.broken){
+		   		bottomSensor.getBody().applyLinearImpulse(-.002f, 0, pos.x, pos.y, true);
+		   		//direction = "leftwalk";
+		   		//walking = true;
+		   		//directionmoving = "left";
+	   		}
+	   	} else if( rightDown && vel.x < MAX_VELOCITY) {
 	   		bottomSensor.getBody().applyLinearImpulse(.02f, 0, pos.x, pos.y ,true);
 	   		direction = "walk";
 	   		walking = true;
 	   		directionmoving = "";
-	   	}else if(!Gdx.input.isKeyPressed(Keys.D) && !Gdx.input.isKeyPressed(Keys.A) && Gdx.app.getType() != ApplicationType.Android){
-	   		walking = false;
-	   	}else if(!rightDown && !leftDown && Gdx.app.getType() == ApplicationType.Android){
+	   	}else if(!rightDown && !leftDown ){
 	   		walking = false;
 	   	}
 	   	
-	   	if(Gdx.input.isKeyPressed(Keys.SPACE) || jumpDown){
+	   	if( jumpDown){
 	   		jump();
 	   	}
 	   	
@@ -121,6 +198,8 @@ public class Player extends PhysicalImage{
 	   	if(egg.broken){
 	   		
 	   		sad = "sad";
+	   		rightDown = false;
+	   		directionmoving = "left";
 	   	}
 		if(frameCount >= 6  && walking){
 		    	if(frame < WALK_CYCLE){
@@ -146,6 +225,9 @@ public class Player extends PhysicalImage{
 		}
 		frameCount ++;
 	    	
+		
+		
+	
 	 
 		}
 		
@@ -156,9 +238,9 @@ public class Player extends PhysicalImage{
         Array<Contact> contactList = world.getContactList();
         for(int i = 0; i < contactList.size; i++) {
                 Contact contact = contactList.get(i);
-                if(contact.isTouching() && (contact.getFixtureA() == bottomSensor || contact.getFixtureB() == bottomSensor)) {                            
+                if(contact.isTouching() && (contact.getFixtureA() == body.getFixtureList().first() || contact.getFixtureB() == body.getFixtureList().first())) {                            
 
-                        Vector2 pos = bottomSensor.getBody().getPosition();
+                        Vector2 pos = body.getPosition();
                         
                 
                         WorldManifold manifold = contact.getWorldManifold();
@@ -184,11 +266,30 @@ public class Player extends PhysicalImage{
     public void jump(){
        if(isGrounded()){
     	   Vector2 vel = body.getLinearVelocity();
-    	   if(vel.y < MAX_JUMP * body.getGravityScale()){
-    		   body.applyForceToCenter(0f, 4f * body.getGravityScale(), true);
+    	   if(vel.y < MAX_JUMP ){
+    		   bottomSensor.getBody().applyForceToCenter(0f, 4f, true);
+    	   }else{
+    		   jumpDown = false;
     	   }
        }
        
+    }
+    
+    
+    /*************************************************************************************
+	 * This plays the death animation and moves the player back to the start of the level
+	 *************************************************************************************/
+    public void die(){
+    	this.setVisible(false);
+    	particals.x = getX() + 100;
+    	particals.y = getY();
+        particals.start();
+        deathPos = new Vector2(getX(), getY());
+        rightDown = false;
+        bottomSensor.setSensor(true);
+        eggholderSensor.setSensor(true);
+        bottomSensor.getBody().setLinearVelocity(new Vector2(0,0));
+        
     }
    
 }

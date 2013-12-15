@@ -11,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.intelligentbeans.boilerplate.PhysicalImage;
 
-public class Platform extends PhysicalImage{
+public class Platform extends PhysicalImage implements EggBreaker{
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//STATIC PROPERTIES

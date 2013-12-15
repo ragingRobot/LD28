@@ -49,6 +49,20 @@
 	x: 2542,
 	y: 50
 }
+
+,
+{
+	class: com.intelligentbeans.boilerplate.JSONGameItem,
+	itemType: Block,
+	x: 1500,
+	y: 490
+},
+{
+	class: com.intelligentbeans.boilerplate.JSONGameItem,
+	itemType: Spikes,
+	x: 800,
+	y: 273
+}
 ,
 {
 	class: com.intelligentbeans.boilerplate.JSONGameItem,
@@ -56,4 +70,5 @@
 	x: 100,
 	y: 400
 }
+
 ]

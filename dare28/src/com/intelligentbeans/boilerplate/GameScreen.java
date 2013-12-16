@@ -22,7 +22,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
-import com.lights.box2dLight.RayHandler;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 public class GameScreen implements Screen, ContactListener {
@@ -42,7 +41,6 @@ public class GameScreen implements Screen, ContactListener {
 	protected Stage staticStage;
 	protected Box2DDebugRenderer debugRenderer;
 	protected FPSLogger logger;
-	protected RayHandler rayHandler;
 	protected String level;
 	protected SpriteBatch batch;
 	protected String backgroundImage = "data/backgrounds/background.jpg";
@@ -75,7 +73,6 @@ public class GameScreen implements Screen, ContactListener {
 		logger = new FPSLogger();
 		world = new World(new Vector2(0, -10f), true);
 		debugRenderer = new Box2DDebugRenderer();
-		rayHandler = new RayHandler(world);
 
 
 		Gdx.input.setInputProcessor(staticStage);
@@ -176,12 +173,6 @@ public class GameScreen implements Screen, ContactListener {
 
 		camera.update();
 
-
-		if (lightsOn) {
-			// this passes the camera info to the ray handler for our lights
-			rayHandler.setCombinedMatrix(camera.combined);
-		}
-
 		// this clears the canvas so we can start drawing a clean frame
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
@@ -191,10 +182,6 @@ public class GameScreen implements Screen, ContactListener {
 		background.draw();
 
 
-		if (lightsOn) {
-			// this renders our lights
-			rayHandler.updateAndRender();
-		}
 
 		// this animates then draws the main game layer
 		stage.act(delta);

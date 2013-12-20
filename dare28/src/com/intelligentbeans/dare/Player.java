@@ -28,6 +28,7 @@ public class Player extends PhysicalImage{
     public Boolean rightDown = false;
     public Boolean leftDown = false;
     public boolean leftbuttonpressed = false;
+    public boolean rightbuttonpressed = true;
     public boolean jumpbuttonpressed = false;
     private ParticalActor particals;
     public Egg egg;
@@ -41,6 +42,8 @@ public class Player extends PhysicalImage{
 	private Vector2 deathPos;
 	private DareGameScreen gameScreen;
 	boolean started = false;
+	boolean resetJump = true;
+	
 	public Player(Vector2 position,  World world, Stage stage, DareGameScreen screen){
 		super(position, "player-happy",world, false, true,.2f);
 		this.gameScreen = screen;
@@ -63,7 +66,7 @@ public class Player extends PhysicalImage{
 
        
 
-     // Create a fixture definition to apply our shape to
+        // Create a fixture definition to apply our shape to
         FixtureDef bottomfixtureDef = new FixtureDef();
         bottomfixtureDef.shape = bottombodyShape;
         bottomfixtureDef.density = 0f; 
@@ -74,7 +77,7 @@ public class Player extends PhysicalImage{
         
    
         
-     // Create our fixture and attach it to the body
+        // Create our fixture and attach it to the body
         bottomSensor = body.createFixture(bottomfixtureDef);
        
         
@@ -109,7 +112,7 @@ public class Player extends PhysicalImage{
 
        
 
-     // Create a fixture definition to apply our shape to
+        // Create a fixture definition to apply our shape to
         FixtureDef eggholderfixtureDef = new FixtureDef();
         eggholderfixtureDef.shape = eggholderbodyShape;
         eggholderfixtureDef.density = 0f; 
@@ -120,7 +123,7 @@ public class Player extends PhysicalImage{
         
    
         
-     // Create our fixture and attach it to the body
+        // Create our fixture and attach it to the body
         eggholderSensor = body.createFixture(eggholderfixtureDef);
        
         
@@ -133,6 +136,43 @@ public class Player extends PhysicalImage{
         particals = new ParticalActor("data/death.p");
         stage.addActor(particals);
 		
+	}
+	
+	public void reset(){
+
+		
+		
+		this.setVisible(true);
+        rightDown = false;
+        bottomSensor.setSensor(false);
+        eggholderSensor.setSensor(false);
+        bottomSensor.getBody().setLinearVelocity(new Vector2(0,0));
+        
+        
+	    jumpDown =false;
+	    rightDown = false;
+	    leftDown = false;
+	    leftbuttonpressed = false;
+	    jumpbuttonpressed = false;
+	    walking = true;
+		frameCount = 0;
+		direction = "walk";
+		sad ="";
+		directionmoving = "";
+		started = false;
+		resetJump = true;
+		
+		
+		setY(Math.round((body.getPosition().y/GameScreen.WORLD_TO_BOX) - (getHeight())/2) - 5);
+		setX(Math.round((body.getPosition().x * GameScreen.BOX_TO_WORLD) - (getWidth())/2));
+		
+		
+		
+		egg.body.setLinearVelocity(new Vector2(0,0));
+		egg.body.setTransform((getX() + 105) * GameScreen.WORLD_TO_BOX, ( getY() + region.getRegionHeight()) * GameScreen.WORLD_TO_BOX, egg.body.getAngle());
+		egg.reset();
+
+	
 	}
 	
 	public void addEgg(){
@@ -154,15 +194,17 @@ public class Player extends PhysicalImage{
 		Vector2 vel = bottomSensor.getBody().getLinearVelocity();
 		Vector2 pos = bottomSensor.getBody().getPosition();
 		
-		//(Gdx.input.isKeyPressed(Keys.A)
-			//	(Gdx.input.isKeyPressed(Keys.D)
-	   	// apply left impulse, but only if max velocity is not reached yet
-		
-		
 		if(Gdx.input.isKeyPressed(Keys.A) || leftbuttonpressed){
 			leftDown = true;
 		}else{
 			leftDown = false;
+		}
+		
+		
+		if(Gdx.input.isKeyPressed(Keys.D)){
+			rightbuttonpressed = true;
+		}else if(Gdx.app.getType() != ApplicationType.Android){
+			rightbuttonpressed = false;
 		}
 		
 		if(Gdx.input.isKeyPressed(Keys.SPACE) || jumpbuttonpressed){
@@ -190,6 +232,10 @@ public class Player extends PhysicalImage{
 	   		directionmoving = "";
 	   	}else if(!rightDown && !leftDown ){
 	   		walking = false;
+	   	}
+	   	
+	   	if(walking && rightbuttonpressed && vel.x < MAX_VELOCITY + 3){
+	   		bottomSensor.getBody().applyLinearImpulse(.005f, 0, pos.x, pos.y ,true);
 	   	}
 	   	
 	   	if( jumpDown){
@@ -267,7 +313,6 @@ public class Player extends PhysicalImage{
     /*************************************************************************************
 	 * This makes the player jump if they are on the ground
 	 *************************************************************************************/
-    boolean resetJump = true;
     public void jump(){
        if(isGrounded() && !egg.broken){
     	   Vector2 vel = body.getLinearVelocity();

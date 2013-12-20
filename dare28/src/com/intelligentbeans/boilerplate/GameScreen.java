@@ -47,6 +47,7 @@ public class GameScreen implements Screen, ContactListener {
 	protected boolean lightsOn = false;
 	protected String music = "";
 	protected Stage loading;
+	protected Array<JSONGameItem> items;
 	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// SETUP AND SCREEN RESIZE STUFF
 	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -110,6 +111,7 @@ public class GameScreen implements Screen, ContactListener {
 	 * This takes the name of a JSON file then creates the level based on that
 	 * file
 	 *************************************************************************************/
+	@SuppressWarnings("unchecked")
 	protected void loadLevel(String levelToLoad) {
 
 		// this loads the json file with our level
@@ -118,8 +120,8 @@ public class GameScreen implements Screen, ContactListener {
 
 		// this converts the json objects into java objects that we can read
 		// easily
-		@SuppressWarnings("unchecked")
-		Array<JSONGameItem> items = json.fromJson(Array.class, JSONGameItem.class, file);
+	
+		items = json.fromJson(Array.class, JSONGameItem.class, file);
 
 		// loop through the contents of the level file and create the objects
 		// spcified

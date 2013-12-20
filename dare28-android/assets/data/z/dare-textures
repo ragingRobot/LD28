@@ -10,184 +10,198 @@ platform
   orig: 422, 500
   offset: 0, 0
   index: -1
-rightButtonDown
+intro-mobile
+  rotate: false
+  xy: 424, 0
+  size: 700, 474
+  orig: 700, 474
+  offset: 0, 0
+  index: -1
+leftButtonDown
+  rotate: false
+  xy: 424, 476
+  size: 456, 456
+  orig: 456, 456
+  offset: 0, 0
+  index: -1
+leftButton
+  rotate: false
+  xy: 1126, 0
+  size: 456, 456
+  orig: 456, 456
+  offset: 0, 0
+  index: -1
+intro
   rotate: false
   xy: 0, 502
+  size: 400, 360
+  orig: 400, 360
+  offset: 0, 0
+  index: -1
+rightButtonDown
+  rotate: false
+  xy: 1584, 0
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 rightButton
   rotate: false
-  xy: 0, 760
-  size: 256, 256
-  orig: 256, 256
-  offset: 0, 0
-  index: -1
-leftButtonDown
-  rotate: false
-  xy: 424, 0
-  size: 256, 256
-  orig: 256, 256
-  offset: 0, 0
-  index: -1
-leftButton
-  rotate: false
-  xy: 424, 258
+  xy: 1126, 458
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 jumpButtonDown
   rotate: false
-  xy: 424, 516
+  xy: 1126, 716
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 jumpButton
   rotate: false
-  xy: 682, 0
+  xy: 1384, 458
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 walk2
   rotate: false
-  xy: 258, 502
+  xy: 882, 476
   size: 142, 169
   orig: 142, 169
   offset: 0, 0
   index: -1
 walk1
   rotate: false
-  xy: 258, 760
+  xy: 882, 647
   size: 142, 169
   orig: 142, 169
   offset: 0, 0
   index: -1
 sadwalk2
   rotate: false
-  xy: 424, 774
+  xy: 882, 818
   size: 142, 169
   orig: 142, 169
   offset: 0, 0
   index: -1
 sadwalk1
   rotate: false
-  xy: 682, 258
+  xy: 1584, 258
   size: 142, 169
   orig: 142, 169
   offset: 0, 0
   index: -1
 sadleftwalk2
   rotate: false
-  xy: 682, 429
+  xy: 1842, 0
   size: 142, 169
   orig: 142, 169
   offset: 0, 0
   index: -1
 sadleftwalk1
   rotate: false
-  xy: 682, 600
+  xy: 1842, 171
   size: 142, 169
   orig: 142, 169
   offset: 0, 0
   index: -1
 leftwalk2
   rotate: false
-  xy: 682, 771
+  xy: 1384, 716
   size: 142, 169
   orig: 142, 169
   offset: 0, 0
   index: -1
 leftwalk1
   rotate: false
-  xy: 940, 0
+  xy: 1642, 458
   size: 142, 169
   orig: 142, 169
   offset: 0, 0
   index: -1
 left
   rotate: false
-  xy: 940, 171
+  xy: 1786, 458
   size: 142, 169
   orig: 142, 169
   offset: 0, 0
   index: -1
 player-sad
   rotate: false
-  xy: 940, 342
+  xy: 1642, 629
   size: 142, 165
   orig: 142, 165
   offset: 0, 0
   index: -1
 leftplayer-sad
   rotate: false
-  xy: 940, 509
+  xy: 1642, 796
   size: 142, 165
   orig: 142, 165
   offset: 0, 0
   index: -1
 player-happy
   rotate: false
-  xy: 940, 676
+  xy: 1786, 629
   size: 138, 164
   orig: 138, 164
   offset: 0, 0
   index: -1
 leftplayer-happy
   rotate: false
-  xy: 940, 842
+  xy: 1786, 795
   size: 138, 164
   orig: 138, 164
   offset: 0, 0
   index: -1
 egg
   rotate: false
-  xy: 258, 673
+  xy: 0, 864
   size: 56, 77
   orig: 56, 77
   offset: 0, 0
   index: -1
 box
   rotate: false
-  xy: 316, 673
+  xy: 58, 864
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 resetButtonDown
   rotate: false
-  xy: 1084, 0
+  xy: 124, 864
   size: 177, 59
   orig: 177, 59
   offset: 0, 0
   index: -1
 resetButton
   rotate: false
-  xy: 1263, 0
+  xy: 124, 925
   size: 177, 59
   orig: 177, 59
   offset: 0, 0
   index: -1
 spikes
   rotate: false
-  xy: 258, 931
+  xy: 424, 934
   size: 142, 55
   orig: 142, 55
   offset: 0, 0
   index: -1
 egg-broken
   rotate: false
-  xy: 424, 945
+  xy: 303, 864
   size: 95, 53
   orig: 95, 53
   offset: 0, 0
   index: -1
 block
   rotate: false
-  xy: 258, 988
+  xy: 124, 986
   size: 96, 34
   orig: 96, 34
   offset: 0, 0

@@ -200,13 +200,13 @@ public class Player extends PhysicalImage{
 			leftDown = false;
 		}
 		
-		
+		/*
 		if(Gdx.input.isKeyPressed(Keys.D)){
 			rightbuttonpressed = true;
 		}else if(Gdx.app.getType() != ApplicationType.Android){
 			rightbuttonpressed = false;
 		}
-		
+		*/
 		if(Gdx.input.isKeyPressed(Keys.SPACE) || jumpbuttonpressed){
 			if(started){
 				jumpDown = true;
@@ -234,10 +234,11 @@ public class Player extends PhysicalImage{
 	   		walking = false;
 	   	}
 	   	
+	   	/*
 	   	if(walking && rightbuttonpressed && vel.x < MAX_VELOCITY + 3){
 	   		bottomSensor.getBody().applyLinearImpulse(.005f, 0, pos.x, pos.y ,true);
 	   	}
-	   	
+	   	*/
 	   	if( jumpDown){
 	   		jump();
 	   	}

@@ -241,7 +241,7 @@ public class DareGameScreen extends GameScreen {
 		if (Gdx.app.getType() == ApplicationType.Android) {
 			// android specific code
 			staticStage.addActor(leftbutton);
-			staticStage.addActor(rightbutton);
+			//staticStage.addActor(rightbutton);
 			staticStage.addActor(button);
 	
 		}

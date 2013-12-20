@@ -24,6 +24,8 @@ public class DareGameScreen extends GameScreen {
 	Player player;
 	private List<Platform> platformsl;
 	private List<PhysicalImage> obstacles;
+	private List<Block> blocksl;
+	private List<Spikes> spikesl;
 	private ImageButton resetbutton;
 	int platformCount =0;
 	boolean followPlayer = true;
@@ -72,6 +74,7 @@ public class DareGameScreen extends GameScreen {
 			if(this.platformsl == null){
 				this.platformsl = new LinkedList<Platform>();
 			}
+			
 			stage.addActor(platform);
 			platformsl.add(platform);
 			//Gdx.app.log("test","" + platforms.size);
@@ -81,8 +84,17 @@ public class DareGameScreen extends GameScreen {
 			if(this.obstacles == null){
 				this.obstacles = new LinkedList<PhysicalImage>();
 			}
+			
+			if(this.blocksl == null){
+				this.blocksl = new LinkedList<Block>();
+			}
+			
+			Random random = new Random();
+			block.setMoving(random.nextBoolean());
+			
 			stage.addActor(block);
 			obstacles.add(block);
+			blocksl.add(block);
 			//Gdx.app.log("test","" + platforms.size);
 		}else if(item.getItemType().equals("Spikes")){
 			Spikes spikes = new Spikes(new Vector2(item.getX(),item.getY()), world);
@@ -90,8 +102,13 @@ public class DareGameScreen extends GameScreen {
 			if(this.obstacles == null){
 				this.obstacles = new LinkedList<PhysicalImage>();
 			}
+			
+			if(this.spikesl == null){
+				this.spikesl = new LinkedList<Spikes>();
+			}
 			stage.addActor(spikes);
 			obstacles.add(spikes);
+			spikesl.add(spikes);
 			//Gdx.app.log("test","" + platforms.size);
 		}
 
@@ -156,7 +173,7 @@ public class DareGameScreen extends GameScreen {
 
 		button.setBounds(Gdx.graphics.getWidth() - 128 - 20, 15, 128, 128);
 		leftbutton.setBounds(20, 15, 226, 226);
-		rightbutton.setBounds(30, 5, 128, 128);
+		rightbutton.setBounds(300, 5, 128, 128);
 		resetbutton.setBounds(Gdx.graphics.getWidth() - 177 - 30, Gdx.graphics.getHeight() - 60 - 30, 177, 60);
 		// table.add(button);
 
@@ -191,13 +208,13 @@ public class DareGameScreen extends GameScreen {
 		rightbutton.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
-				player.rightDown = true;
+				player.rightbuttonpressed = true;
 				return true;
 			}
 
 			public void touchUp(InputEvent event, float x, float y,
 					int pointer, int button) {
-				player.rightDown = false;
+				player.rightbuttonpressed = false;
 			}
 
 		});
@@ -224,6 +241,7 @@ public class DareGameScreen extends GameScreen {
 		if (Gdx.app.getType() == ApplicationType.Android) {
 			// android specific code
 			staticStage.addActor(leftbutton);
+			staticStage.addActor(rightbutton);
 			staticStage.addActor(button);
 	
 		}
@@ -235,7 +253,58 @@ public class DareGameScreen extends GameScreen {
 	
 	public void reset(){
 		SoundManager.getInstance().stopSong();
-		game.setScreen(new DareGameScreen("data/levels/level.json",game));
+		//game.setScreen(new DareGameScreen("data/levels/level.json",game));
+		
+		SoundManager.getInstance().loadSong("data/sounds/test.mp3");
+		
+		int platformCounter = 0;
+		int blockCounter = 0;
+		int spikeCounter = 0;
+		followPlayer = true;
+		started = false;
+		
+		intro.setVisible(true);
+		resetbutton.setVisible(false);
+		    	
+		    	
+		for (JSONGameItem item : items) {
+
+			if (item.getItemType().equals("Player")) {
+				
+				
+				player.body.setTransform(item.getX() * GameScreen.WORLD_TO_BOX, item.getY() * GameScreen.WORLD_TO_BOX, player.body.getAngle());
+				player.reset();
+				
+			}else if(item.getItemType().equals("Platform")){
+				
+				
+				Platform plat = platformsl.get(platformCounter);
+				
+				plat.body.setTransform(item.getX() * GameScreen.WORLD_TO_BOX, item.getY() * GameScreen.WORLD_TO_BOX, plat.body.getAngle());
+				platformCounter ++;
+				//Gdx.app.log("test","" + platforms.size);
+			}else if(item.getItemType().equals("Block")){
+				
+				Block block = blocksl.get(blockCounter);
+				
+				block.body.setTransform(item.getX() * GameScreen.WORLD_TO_BOX, item.getY() * GameScreen.WORLD_TO_BOX, block.body.getAngle());
+				
+				Random random = new Random();
+				block.setMoving(random.nextBoolean());
+				
+				blockCounter ++;
+				
+			}else if(item.getItemType().equals("Spikes")){
+				Spikes spikes = spikesl.get(spikeCounter);
+				
+				spikes.body.setTransform(item.getX() * GameScreen.WORLD_TO_BOX, item.getY() * GameScreen.WORLD_TO_BOX, spikes.body.getAngle());
+				spikeCounter ++;
+			}
+			
+			
+
+		}
+		
 	}
 	public void start(){
 		intro.setVisible(false);

@@ -49,6 +49,17 @@ public class Egg  extends PhysicalImage{
 		}
 	 
 	}
+    
+    public void reset(){
+    	region = atlas.findRegion("egg");
+		setWidth(region.packedWidth);
+		setHeight(region.packedHeight);
+		breakX = 0;
+		breakY = 0;
+		body.getFixtureList().first().setSensor(false);
+		broken = false;
+    	
+    }
 		
 	public boolean isGrounded() {				
 	   	 

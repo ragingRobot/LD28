@@ -8,6 +8,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -27,15 +28,19 @@ public class DareGameScreen extends GameScreen {
 	private List<Block> blocksl;
 	private List<Spikes> spikesl;
 	private ImageButton resetbutton;
+	private int meters = 0;
 	int platformCount =0;
 	boolean followPlayer = true;
 	Game game;
 	SpriteImage intro;
 	boolean started = false;
+	private String yourScoreName = "meters: 0";
+	BitmapFont yourBitmapFontName;
 	public DareGameScreen(String level, Game game) {
 		super(level, game);
 		this.game = game;
-		
+	    yourBitmapFontName = new BitmapFont();
+
 		if(Gdx.app.getType() == ApplicationType.Android) {
 			intro = new SpriteImage(new Vector2((Gdx.graphics.getWidth()/2)-200, Gdx.graphics.getHeight() - 600),"intro-mobile");
 			intro.addListener(new InputListener() {
@@ -262,6 +267,8 @@ public class DareGameScreen extends GameScreen {
 		int spikeCounter = 0;
 		followPlayer = true;
 		started = false;
+		meters = 0;
+		yourScoreName = "meters: 0";
 		
 		intro.setVisible(true);
 		resetbutton.setVisible(false);
@@ -325,7 +332,7 @@ public class DareGameScreen extends GameScreen {
 	public void render(float delta) {
 		super.render(delta);
 		
-		
+
 		if(!started && Gdx.input.isKeyPressed(Keys.SPACE)){
 			start();
 			
@@ -350,7 +357,8 @@ public class DareGameScreen extends GameScreen {
 				Platform first = platformsl.remove(0);
 				first.body.setTransform(platformsl.get(platformsl.size()-1).body.getPosition().x + (422 * GameScreen.WORLD_TO_BOX), first.body.getPosition().y, first.body.getAngle());
 				platformsl.add(first);
-				
+				meters ++;
+				yourScoreName = "meters: " + meters;
 			
 			}
 		}
@@ -372,6 +380,12 @@ public class DareGameScreen extends GameScreen {
 
 
 		}
+		batch.begin(); 
+		yourBitmapFontName.setColor(58.0f, 0.0f, 0.0f, 1.0f);
+		yourBitmapFontName.draw(batch, yourScoreName,100, Gdx.graphics.getHeight() - 20); 
+		batch.end(); 
+		
+		
 		camera.update();
 	}
 	

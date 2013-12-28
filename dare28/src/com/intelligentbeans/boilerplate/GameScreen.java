@@ -48,6 +48,7 @@ public class GameScreen implements Screen, ContactListener {
 	protected String music = "";
 	protected Stage loading;
 	protected Array<JSONGameItem> items;
+	protected boolean paused = false;
 	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// SETUP AND SCREEN RESIZE STUFF
 	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -178,17 +179,21 @@ public class GameScreen implements Screen, ContactListener {
 		// this clears the canvas so we can start drawing a clean frame
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		if(!paused){
+		
+			background.act(delta);
+		}
+			background.draw();
+
 
 		
-		background.act(delta);
-		background.draw();
-
-
-
-		// this animates then draws the main game layer
-		stage.act(delta);
-		stage.draw();
-
+			if(!paused){	// this animates then draws the main game layer
+			stage.act(delta);
+			}
+			
+			
+			stage.draw();
+		
 		// this animated then draws the layer with stationary controlls on it
 		staticStage.act(delta);
 		staticStage.draw();
@@ -202,9 +207,10 @@ public class GameScreen implements Screen, ContactListener {
 		// this renders the physics debugger.
 		//debugRenderer.render(world, camera.combined.scale(100,100,100));
 
-		
+		if(!paused){
 		// this steps the physics engine
 		world.step(1 / 60f, 6, 2);
+		}
 
 		// this logs our FPS to the console. We can romove this in production
 		logger.log();

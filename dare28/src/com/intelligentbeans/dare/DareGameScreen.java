@@ -40,6 +40,8 @@ public class DareGameScreen extends GameScreen {
 	private double distanceApartObstacles = 1000;
 	private ProgressBar progressBar;
 	private float levellenght;
+	private LevelMenu levelMenu;
+
 	public DareGameScreen(String level, Game game) {
 		super(level, game);
 		this.game = game;
@@ -76,6 +78,10 @@ public class DareGameScreen extends GameScreen {
 			((OrthographicCamera) stage.getCamera()).zoom = 1.5f;
 		
 		}
+		
+		
+		
+		
 	}
 	
 	@Override
@@ -165,6 +171,9 @@ public class DareGameScreen extends GameScreen {
 		progressBar.setX((Gdx.graphics.getWidth()/2) - 263);
 		progressBar.setY(Gdx.graphics.getHeight() - offsetTop);
 		
+		
+		levelMenu.setX(Gdx.graphics.getWidth()/2 - levelMenu.getWidth()/2);
+		levelMenu.setY(Gdx.graphics.getHeight()/2 - levelMenu.getHeight()/2);
 
 	}
 	
@@ -199,12 +208,15 @@ public class DareGameScreen extends GameScreen {
 		
 		TextureRegionDrawable resetup = new TextureRegionDrawable(atlas.findRegion("resetButton"));
 		TextureRegionDrawable resetdown = new TextureRegionDrawable(atlas.findRegion("resetButtonDown"));
+		TextureRegionDrawable levelup = new TextureRegionDrawable(atlas.findRegion("levelButton"));
+		TextureRegionDrawable leveldown = new TextureRegionDrawable(atlas.findRegion("levelButtonDown"));
 
 		// Create a button with the "default" TextButtonStyle. A 3rd parameter
 		// can be used to specify a name other than "default".
 		final ImageButton button = new ImageButton(jumpup, jumpdown);
 		final ImageButton leftbutton = new ImageButton(leftup, leftdown);
 		final ImageButton rightbutton = new ImageButton(rightup, rightdown);
+		final ImageButton levelbutton = new ImageButton(levelup, leveldown);
 		resetbutton = new ImageButton(resetup, resetdown);
 		addLevelIndicator();
 		
@@ -213,13 +225,17 @@ public class DareGameScreen extends GameScreen {
 		leftbutton.setBounds(20, 15, 226, 226);
 		rightbutton.setBounds(300, 5, 128, 128);
 		resetbutton.setBounds(Gdx.graphics.getWidth() - 177 - 30, Gdx.graphics.getHeight() - 60 - 30, 177, 60);
-		
+		levelbutton.setX(20);
+		levelbutton.setY(Gdx.graphics.getHeight() - 60 - 30);
 		
 		if(Gdx.graphics.getWidth() < 850){
 			button.setBounds(Gdx.graphics.getWidth() - 30, -40, 128, 128);
 			leftbutton.setBounds(-95, -40, 226, 226);
 			
 			resetbutton.setBounds(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 177, 60);
+			
+			levelbutton.setX(-95);
+			levelbutton.setY(Gdx.graphics.getHeight());
 		}
 		// table.add(button);
 
@@ -267,15 +283,38 @@ public class DareGameScreen extends GameScreen {
 		
 		
 		resetbutton.addListener(new InputListener() {
+			
 			public boolean touchDown(InputEvent event, float x, float y,int pointer, int button) {
 				//////////////RESET HERE
 				reset();
-				
 				return true;
 			}
 
 			public void touchUp(InputEvent event, float x, float y,int pointer, int button) {
 				
+			}
+
+		});
+		
+		
+		
+		
+		
+		
+		
+	levelbutton.addListener(new InputListener() {
+			
+			public boolean touchDown(InputEvent event, float x, float y,int pointer, int button) {
+			
+				return true;
+			}
+
+			public void touchUp(InputEvent event, float x, float y,int pointer, int button) {
+				if(levelMenu.isVisible()){
+					levelMenu.setVisible(false);
+				}else{
+					levelMenu.setVisible(true);
+				}
 			}
 
 		});
@@ -292,7 +331,14 @@ public class DareGameScreen extends GameScreen {
 		}
 		
 		staticStage.addActor(resetbutton);
+		staticStage.addActor(levelbutton);
 		resetbutton.setVisible(false);
+		
+		
+		levelMenu = new LevelMenu(new Vector2(0,0), staticStage);
+		levelMenu.setX(Gdx.graphics.getWidth()/2 - levelMenu.getWidth()/2);
+		levelMenu.setY(Gdx.graphics.getHeight()/2 - levelMenu.getHeight()/2);
+		levelMenu.setVisible(false);
 		
 		
 	
@@ -387,12 +433,13 @@ public class DareGameScreen extends GameScreen {
 	public void render(float delta) {
 		super.render(delta);
 		
+		if(levelMenu.isVisible()){
+			paused = true;
+		}else{
+			paused = false;
+		}
 		
-		
-		
-		
-		
-		
+		if(!paused && !levelMenu.isVisible()){
 
 		if(!started && Gdx.input.isKeyPressed(Keys.SPACE)){
 			start();
@@ -451,6 +498,8 @@ public class DareGameScreen extends GameScreen {
 		
 		
 		camera.update();
+		
+		}
 	}
 	
 	

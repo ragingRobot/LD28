@@ -60,6 +60,12 @@ public class ProgressBar extends SpriteImage {
 	*************************************************************************************/
 	@Override
 	public void act(float delta) {
+		progress.setX(this.getX() + 12);
+		progress.setY(this.getY() + 18);
+		
+		
+		progressIndicator.setX(progress.getX() + progress.getWidth() - (progressIndicator.getWidth()/2));
+		progressIndicator.setY(this.getY());
 		super.act(delta);		
 	}
 	

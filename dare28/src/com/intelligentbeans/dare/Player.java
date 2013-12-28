@@ -56,12 +56,12 @@ public class Player extends PhysicalImage{
 		
 		
 		
-		float posX = 30 *GameScreen.WORLD_TO_BOX;
+		float posX = -20 * GameScreen.WORLD_TO_BOX;
 		float posY =  - 27* GameScreen.WORLD_TO_BOX;
 		  // Create a bodyShape shape and set its radius to 6
         PolygonShape bottombodyShape = new PolygonShape();
 
-        bottombodyShape.setAsBox(2 * GameScreen.WORLD_TO_BOX , 55 * GameScreen.WORLD_TO_BOX , new Vector2(posX,posY),0); 
+        bottombodyShape.setAsBox(40 * GameScreen.WORLD_TO_BOX , 55 * GameScreen.WORLD_TO_BOX , new Vector2(posX,posY),0); 
        
 
        
@@ -70,7 +70,7 @@ public class Player extends PhysicalImage{
         FixtureDef bottomfixtureDef = new FixtureDef();
         bottomfixtureDef.shape = bottombodyShape;
         bottomfixtureDef.density = 0f; 
-        bottomfixtureDef.friction = 2f;
+        bottomfixtureDef.friction = 3f;
         bottomfixtureDef.restitution = 0.2f; // Make it bounce a little bit
         //bottomfixtureDef.isSensor = true;
         
@@ -102,12 +102,12 @@ public class Player extends PhysicalImage{
         
         
         posX =  0;
-		posY =  10 * GameScreen.WORLD_TO_BOX;
+		posY =  7 * GameScreen.WORLD_TO_BOX;
         
         
         // Create a bodyShape shape and set its radius to 6
         PolygonShape eggholderbodyShape = new PolygonShape();
-        eggholderbodyShape.setAsBox( .1f * GameScreen.WORLD_TO_BOX, 20 * GameScreen.WORLD_TO_BOX , new Vector2(posX,posY),0); 
+        eggholderbodyShape.setAsBox( 45 * GameScreen.WORLD_TO_BOX, 20 * GameScreen.WORLD_TO_BOX , new Vector2(posX,posY),0); 
        
 
        
@@ -116,7 +116,7 @@ public class Player extends PhysicalImage{
         FixtureDef eggholderfixtureDef = new FixtureDef();
         eggholderfixtureDef.shape = eggholderbodyShape;
         eggholderfixtureDef.density = 0f; 
-        eggholderfixtureDef.friction = 0f;
+        eggholderfixtureDef.friction = 1.5f;
         eggholderfixtureDef.restitution = 0.2f; // Make it bounce a little bit
         //bottomfixtureDef.isSensor = true;
         

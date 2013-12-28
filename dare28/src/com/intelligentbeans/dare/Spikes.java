@@ -7,11 +7,11 @@ import com.intelligentbeans.boilerplate.GameScreen;
 import com.intelligentbeans.boilerplate.PhysicalImage;
 
 public class Spikes extends PhysicalImage implements EggBreaker{
-	int offset = 30;
+	int offset = 5;
 	public Spikes(Vector2 position, World world) {	
     	super(position,"spikes",world, true, false, 2);
     	
-    	((PolygonShape) body.getFixtureList().first().getShape()).setAsBox(((getWidth()/4) * GameScreen.WORLD_TO_BOX) / 2,(getHeight()* GameScreen.WORLD_TO_BOX) / 2);
+    	((PolygonShape) body.getFixtureList().first().getShape()).setAsBox(((getWidth() - 30) * GameScreen.WORLD_TO_BOX) / 2,(getHeight()* GameScreen.WORLD_TO_BOX) / 2);
 
     	updateX(position.x);
     	

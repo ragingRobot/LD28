@@ -19,14 +19,16 @@ public class JSONGameItem{
 	String paralaxName = "data/paralax/paralaxMountian.png";
 	float startX;
 	float startY;
+	public float levellenght = 0;
 	boolean lights = false;
 	String music ="";
-	public JSONGameItem(String itemType, float x, float y, float width, float height) {
+	public JSONGameItem(String itemType, float x, float y, float width, float height, float levellenght ) {
 		this.itemType = itemType;
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		this.levellenght =  levellenght;
 		
 	}
 
@@ -73,6 +75,7 @@ public class JSONGameItem{
 	public void setHeight(float height) {
 		this.height = height;
 	}
+
 
 
 }

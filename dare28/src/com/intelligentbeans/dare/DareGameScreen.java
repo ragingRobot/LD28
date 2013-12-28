@@ -8,6 +8,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
@@ -36,6 +37,9 @@ public class DareGameScreen extends GameScreen {
 	boolean started = false;
 	private String yourScoreName = "meters: 0";
 	BitmapFont yourBitmapFontName;
+	private double distanceApartObstacles = 1000;
+	private ProgressBar progressBar;
+	private float levellenght;
 	public DareGameScreen(String level, Game game) {
 		super(level, game);
 		this.game = game;
@@ -63,12 +67,29 @@ public class DareGameScreen extends GameScreen {
 		
 		
 		SoundManager.getInstance().loadSong("data/sounds/test.mp3");
+		
+		
+		Gdx.app.log("test", Gdx.graphics.getWidth() + "");
+		
+		if(Gdx.graphics.getWidth() < 850){
+			((OrthographicCamera) staticStage.getCamera()).zoom = 1.3f;
+			((OrthographicCamera) stage.getCamera()).zoom = 1.5f;
+		
+		}
 	}
 	
 	@Override
 	protected void itemCreationLoop(JSONGameItem item){
 		
 		
+		
+		
+		if (item.getItemType().equals("LevelDetail")) {
+
+			this.levellenght =  item.levellenght;
+			
+
+		} else
 		if (item.getItemType().equals("Player")) {
 			player = new Player(new Vector2(item.getX(),item.getY()), world,stage, this);
 			stage.addActor(player);
@@ -134,6 +155,16 @@ public class DareGameScreen extends GameScreen {
 		intro.setX((Gdx.graphics.getWidth()/2)- (intro.getWidth()/2));
 		intro.setY((Gdx.graphics.getHeight()/2) - (intro.getHeight()/2));
 		
+		
+		int offsetTop = 90;	
+		if(Gdx.graphics.getWidth() < 850){
+			offsetTop = 0;
+			resetbutton.setBounds(Gdx.graphics.getWidth() - 70, Gdx.graphics.getHeight(), 177, 60);
+		}
+		
+		progressBar.setX((Gdx.graphics.getWidth()/2) - 263);
+		progressBar.setY(Gdx.graphics.getHeight() - offsetTop);
+		
 
 	}
 	
@@ -175,11 +206,21 @@ public class DareGameScreen extends GameScreen {
 		final ImageButton leftbutton = new ImageButton(leftup, leftdown);
 		final ImageButton rightbutton = new ImageButton(rightup, rightdown);
 		resetbutton = new ImageButton(resetup, resetdown);
-
+		addLevelIndicator();
+		
+		
 		button.setBounds(Gdx.graphics.getWidth() - 128 - 20, 15, 128, 128);
 		leftbutton.setBounds(20, 15, 226, 226);
 		rightbutton.setBounds(300, 5, 128, 128);
 		resetbutton.setBounds(Gdx.graphics.getWidth() - 177 - 30, Gdx.graphics.getHeight() - 60 - 30, 177, 60);
+		
+		
+		if(Gdx.graphics.getWidth() < 850){
+			button.setBounds(Gdx.graphics.getWidth() - 30, -40, 128, 128);
+			leftbutton.setBounds(-95, -40, 226, 226);
+			
+			resetbutton.setBounds(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 177, 60);
+		}
 		// table.add(button);
 
 		button.addListener(new InputListener() {
@@ -211,8 +252,7 @@ public class DareGameScreen extends GameScreen {
 		});
 
 		rightbutton.addListener(new InputListener() {
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y,int pointer, int button) {
 				player.rightbuttonpressed = true;
 				return true;
 			}
@@ -253,12 +293,27 @@ public class DareGameScreen extends GameScreen {
 		
 		staticStage.addActor(resetbutton);
 		resetbutton.setVisible(false);
+		
+		
+	
+	}
+	
+	void addLevelIndicator(){
+		int offsetTop = 90;
+		if(Gdx.graphics.getWidth() < 850){
+			offsetTop = 0;
+		}
+		progressBar = new ProgressBar(new Vector2((Gdx.graphics.getWidth()/2) - 263,Gdx.graphics.getHeight() - offsetTop),staticStage);
 
+	//intro.setX((Gdx.graphics.getWidth()/2)- (intro.getWidth()/2));
+	//intro.setY((Gdx.graphics.getHeight()/2) - (intro.getHeight()/2));
+	
 	}
 	
 	public void reset(){
 		SoundManager.getInstance().stopSong();
 		//game.setScreen(new DareGameScreen("data/levels/level.json",game));
+		progressBar.setPercentage(0);
 		
 		SoundManager.getInstance().loadSong("data/sounds/test.mp3");
 		
@@ -332,6 +387,12 @@ public class DareGameScreen extends GameScreen {
 	public void render(float delta) {
 		super.render(delta);
 		
+		
+		
+		
+		
+		
+		
 
 		if(!started && Gdx.input.isKeyPressed(Keys.SPACE)){
 			start();
@@ -341,7 +402,7 @@ public class DareGameScreen extends GameScreen {
 		if(player.getX() > obstacles.get(0).getX() + Gdx.graphics.getWidth() + (200 * obstacles.size())){
 			
 			PhysicalImage firstObstacle = obstacles.remove(0);
-			firstObstacle.body.setTransform((float) ((player.getX() +  Math.random()*2000 + 1000) * GameScreen.WORLD_TO_BOX), firstObstacle.body.getPosition().y, firstObstacle.body.getAngle());
+			firstObstacle.body.setTransform((float) ((player.getX() + distanceApartObstacles ) * GameScreen.WORLD_TO_BOX), firstObstacle.body.getPosition().y, firstObstacle.body.getAngle());
 			obstacles.add(firstObstacle);
 			
 			if(firstObstacle instanceof Block){
@@ -358,6 +419,9 @@ public class DareGameScreen extends GameScreen {
 				first.body.setTransform(platformsl.get(platformsl.size()-1).body.getPosition().x + (422 * GameScreen.WORLD_TO_BOX), first.body.getPosition().y, first.body.getAngle());
 				platformsl.add(first);
 				meters ++;
+			
+				//Gdx.app.log( meters+ "/" + levellenght + "=", (meters/levellenght) * 100 + "" );
+				progressBar.setPercentage((meters/levellenght) * 100);
 				yourScoreName = "meters: " + meters;
 			
 			}

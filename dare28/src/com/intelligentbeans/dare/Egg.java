@@ -15,7 +15,7 @@ public class Egg  extends PhysicalImage{
 	 public int breakX = 0;
 	 public int breakY = 0;
 	public Egg(Vector2 position,  World world){
-		super(position, "egg",world, false, false, 10, .002f);
+		super(position, "egg",world, false, false, 30, .002f);
 		this.world = world;
 	}
 	

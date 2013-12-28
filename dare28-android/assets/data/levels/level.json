@@ -4,6 +4,7 @@
 	itemType: LevelDetail,
 	background:"data/backgrounds/background.jpg",
 	lights: false,
+	levellenght: 50
 
 }
 ,
@@ -62,13 +63,13 @@
 {
 	class: com.intelligentbeans.boilerplate.JSONGameItem,
 	itemType: Block,
-	x: 2000,
+	x: 2300,
 	y: 490
 },
 {
 	class: com.intelligentbeans.boilerplate.JSONGameItem,
 	itemType: Spikes,
-	x: 2800,
+	x: 3800,
 	y: 273
 }
 
@@ -76,19 +77,19 @@
 {
 	class: com.intelligentbeans.boilerplate.JSONGameItem,
 	itemType: Spikes,
-	x: 3500,
+	x: 4500,
 	y: 273
 }
 ,{
 	class: com.intelligentbeans.boilerplate.JSONGameItem,
 	itemType: Block,
-	x: 4200,
+	x: 5200,
 	y: 490
 },
 {
 	class: com.intelligentbeans.boilerplate.JSONGameItem,
 	itemType: Block,
-	x: 4800,
+	x: 6800,
 	y: 490
 },
 {

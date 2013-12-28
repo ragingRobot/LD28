@@ -157,30 +157,44 @@ levelprogress
   orig: 219, 21
   offset: 0, 0
   index: -1
-levelButton
+levelOptionInactive
   rotate: false
   xy: 881, 919
+  size: 76, 59
+  orig: 76, 59
+  offset: 0, 0
+  index: -1
+levelOptionActive
+  rotate: false
+  xy: 978, 864
   size: 76, 59
   orig: 76, 59
   offset: 0, 0
   index: -1
 levelButtonDown
   rotate: false
-  xy: 881, 919
+  xy: 978, 925
+  size: 76, 59
+  orig: 76, 59
+  offset: 0, 0
+  index: -1
+levelButton
+  rotate: false
+  xy: 1930, 458
   size: 76, 59
   orig: 76, 59
   offset: 0, 0
   index: -1
 egg
   rotate: false
-  xy: 978, 864
+  xy: 1056, 925
   size: 56, 77
   orig: 56, 77
   offset: 0, 0
   index: -1
 box
   rotate: false
-  xy: 1036, 864
+  xy: 1930, 519
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
@@ -194,7 +208,7 @@ block
   index: -1
 levelindicator
   rotate: false
-  xy: 978, 943
+  xy: 1056, 864
   size: 50, 59
   orig: 50, 59
   offset: 0, 0

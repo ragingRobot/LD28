@@ -15,4 +15,3 @@ public class Dare extends  Game {
 			
 		}
 	}
-

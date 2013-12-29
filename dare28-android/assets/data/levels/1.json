@@ -1,0 +1,102 @@
+[
+{
+	class: com.intelligentbeans.boilerplate.JSONGameItem,
+	itemType: LevelDetail,
+	background:"data/backgrounds/background.jpg",
+	lights: false,
+	levellenght: 10
+
+}
+,
+{
+	class: com.intelligentbeans.boilerplate.JSONGameItem,
+	itemType: Platform,
+	x: 10,
+	y: 50
+}
+
+,
+{
+	class: com.intelligentbeans.boilerplate.JSONGameItem,
+	itemType: Platform,
+	x: 432,
+	y: 50
+}
+
+,
+{
+	class: com.intelligentbeans.boilerplate.JSONGameItem,
+	itemType: Platform,
+	x: 854,
+	y: 50
+}
+,
+{
+	class: com.intelligentbeans.boilerplate.JSONGameItem,
+	itemType: Platform,
+	x: 1698,
+	y: 50
+},
+{
+	class: com.intelligentbeans.boilerplate.JSONGameItem,
+	itemType: Platform,
+	x: 2120,
+	y: 50
+}
+,
+{
+	class: com.intelligentbeans.boilerplate.JSONGameItem,
+	itemType: Platform,
+	x: 2542,
+	y: 50
+}
+
+,
+
+{
+	class: com.intelligentbeans.boilerplate.JSONGameItem,
+	itemType: Spikes,
+	x: 1000,
+	y: 273
+}
+,
+{
+	class: com.intelligentbeans.boilerplate.JSONGameItem,
+	itemType: Block,
+	x: 3000,
+	y: 490
+},
+{
+	class: com.intelligentbeans.boilerplate.JSONGameItem,
+	itemType: Spikes,
+	x: 5000,
+	y: 273
+}
+
+,
+{
+	class: com.intelligentbeans.boilerplate.JSONGameItem,
+	itemType: Spikes,
+	x: 7000,
+	y: 273
+}
+,{
+	class: com.intelligentbeans.boilerplate.JSONGameItem,
+	itemType: Block,
+	x: 9000,
+	y: 490
+},
+{
+	class: com.intelligentbeans.boilerplate.JSONGameItem,
+	itemType: Block,
+	x: 11000,
+	y: 490
+},
+{
+	class: com.intelligentbeans.boilerplate.JSONGameItem,
+	itemType: Player,
+	x: 100,
+	y: 400
+}
+
+]

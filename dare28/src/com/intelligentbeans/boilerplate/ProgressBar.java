@@ -33,18 +33,18 @@ public class ProgressBar extends SpriteImage {
 		progress = new SpriteImage(position, "levelprogress");
 		progressIndicator =  new SpriteImage(position, "levelindicator");
 	
-		progress.setX(this.getX() + 12);
-		progress.setY(this.getY() + 18);
+		progress.setX(12);
+		progress.setY(18);
 		progress.setWidth(0);
 		
 		
 		
-		progressIndicator.setX(progress.getX() + progress.getWidth() - (progressIndicator.getWidth()/2));
-		progressIndicator.setY(this.getY());
+		progressIndicator.setX( progress.getWidth() - (progressIndicator.getWidth()/2));
+		progressIndicator.setY(0);
 		
 		stage.addActor(this);	
-		stage.addActor(progress);
-		stage.addActor(progressIndicator);
+		this.addActor(progress);
+		this.addActor(progressIndicator);
 		
 	 		
 	}
@@ -60,17 +60,12 @@ public class ProgressBar extends SpriteImage {
 	*************************************************************************************/
 	@Override
 	public void act(float delta) {
-		progress.setX(this.getX() + 12);
-		progress.setY(this.getY() + 18);
-		
-		
-		progressIndicator.setX(progress.getX() + progress.getWidth() - (progressIndicator.getWidth()/2));
-		progressIndicator.setY(this.getY());
+	
 		super.act(delta);		
 	}
 	
 	public void setPercentage(float percentage){
-	//Gdx.app.log( maxWidth+ "/" + percentage + "=", (meters/levellenght) * 100 + "" );
+	
 		progress.setWidth(maxWidth * (percentage/100));
 		progressIndicator.setX(progress.getX() + progress.getWidth() - (progressIndicator.getWidth()/2));
 	}

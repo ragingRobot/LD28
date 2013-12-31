@@ -9,7 +9,7 @@ public class Dare extends  Game {
 			//ZTexturePacker.main();
 			
 			//this loads the first game screen
-			setScreen(new DareGameScreen("data/levels/level.json",this));
+			setScreen(new DareGameScreen("data/levels/1.json",this));
 			//setScreen(new LevelMenu(this));
 
 			

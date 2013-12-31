@@ -33,11 +33,12 @@ public class LevelMenu extends SpriteImage {
     protected float maxWidth = 502;
     protected Preferences prefs;
     protected int numLevels = 9;
-    protected Array<SpriteImage> buttons;
+    protected Array<LevelButton> buttons;
+    SpriteImage logo;
 	public LevelMenu(Vector2 position, Stage stage){
 		super(position, "levelMenu");
 		
-		buttons = new Array<SpriteImage>(numLevels);
+		buttons = new Array<LevelButton>(numLevels);
 		/*
 		progress = new SpriteImage(position, "levelprogress");
 		progressIndicator =  new SpriteImage(position, "levelindicator");
@@ -64,48 +65,51 @@ public class LevelMenu extends SpriteImage {
 		
 		int highestLevel = prefs.getInteger("HigestLevelComplete");
 		int currentLevel = prefs.getInteger("CurrentLevel");
-		Gdx.app.log("currentLevel ", currentLevel + "");
+		Gdx.app.log("highLevel ", prefs.getInteger("HigestLevelComplete") + "");
 		
 		
-		for( int i = 0; i< numLevels; i ++){
-			SpriteImage button;
-			if( i + 1 < highestLevel || i == 0){
-				button =  new SpriteImage(position, "levelOptionActive");
-			}else{
-				button =  new SpriteImage(position, "levelOptionInactive");
-			}
-			buttons.add(button);
-			
-			stage.addActor(button);
-		}
-		positionButtons();
+		logo=  new SpriteImage(new Vector2(getWidth()/2  - 125,getHeight() - 140), "levelselect");
+		//stage.addActor(logo);
 		
-	}
-	
-	public void positionButtons(){
-		
+		this.addActor(logo);
 		int xCount = 0;
 		int yCount = 0;
+		
 		for( int i = 0; i< numLevels; i ++){
-			SpriteImage button = buttons.get(i);
-			button.setX((this.getX() + 220) + (xCount * (button.getWidth() + 10)));
-			button.setY((this.getY() + this.getHeight()- 270) - (yCount * (button.getHeight() + 10)));
+			LevelButton button;
+			if( i + 1 < highestLevel || i == 0){
+				
+					button =  new LevelButton(position, true,i + 1);
+			
+			}else {
+				button =  new LevelButton(position, false,i + 1);
+			}
+			
+			
+			button.setX(225 + (xCount * (button.getWidth() + 10)));
+			button.setY((this.getHeight()- 270) - (yCount * (button.getHeight() + 10)));
+			
+			buttons.add(button);
+			
+			this.addActor(button);
 			
 			xCount ++;
 			if(xCount > 2){
 				xCount = 0;
 				yCount ++;
 			}
-			
 		}
+	
 	}
+	
+
 	
 	
 	public void hideButtons(){
-			
+		logo.setVisible(false);
 	
 			for( int i = 0; i< numLevels; i ++){
-				SpriteImage button = buttons.get(i);
+				LevelButton button = buttons.get(i);
 				button.setVisible(false);
 				
 			}
@@ -113,37 +117,14 @@ public class LevelMenu extends SpriteImage {
 	
 	public void showButtons(){
 		this.toFront();
-	
+		logo.toFront();
+		logo.setVisible(true);
 		for( int i = 0; i< numLevels; i ++){
-			SpriteImage button = buttons.get(i);
+			LevelButton button = buttons.get(i);
 			button.setVisible(true);
 			button.toFront();
 			
 		}
-	}
-	
-	
-	
-	@Override
-	public  void setVisible(boolean val){
-		super.setVisible(val);
-		if(val){
-			showButtons();
-		}else{
-			hideButtons();
-		}
-		
-	}
-	@Override
-	public  void setX(float val){
-		super.setX(val);
-		positionButtons();
-	}
-	
-	@Override
-	public  void setY(float val){
-		super.setY(val);
-		positionButtons();
 	}
 	
 	
@@ -157,6 +138,7 @@ public class LevelMenu extends SpriteImage {
 	*************************************************************************************/
 	@Override
 	public void act(float delta) {
+		this.toFront();
 		super.act(delta);		
 	}
 	
@@ -169,7 +151,7 @@ public class LevelMenu extends SpriteImage {
 		prefs.putInteger("CurrentLevel", level);
 		
 		if(prefs.getInteger("HigestLevelComplete") < level){
-			prefs.putInteger("HigestLevelComplete", 0);
+			prefs.putInteger("HigestLevelComplete", level);
 			prefs.flush();
 		}
 		

@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxRuntimeException;
@@ -34,10 +36,12 @@ public class LevelMenu extends SpriteImage {
     protected Preferences prefs;
     protected int numLevels = 9;
     protected Array<LevelButton> buttons;
+    protected int currentLevel = 1;
     SpriteImage logo;
-	public LevelMenu(Vector2 position, Stage stage){
+    DareGameScreen game;
+	public LevelMenu(Vector2 position, Stage stage, DareGameScreen game){
 		super(position, "levelMenu");
-		
+		this.game = game;
 		buttons = new Array<LevelButton>(numLevels);
 		/*
 		progress = new SpriteImage(position, "levelprogress");
@@ -62,10 +66,20 @@ public class LevelMenu extends SpriteImage {
 		*/
 	
 		prefs = Gdx.app.getPreferences("my-preferences");
-		
+		//prefs.clear();
+		//prefs.flush();
 		int highestLevel = prefs.getInteger("HigestLevelComplete");
-		int currentLevel = prefs.getInteger("CurrentLevel");
-		Gdx.app.log("highLevel ", prefs.getInteger("HigestLevelComplete") + "");
+		
+		if(highestLevel == 0){
+			highestLevel = 1;
+		}
+		currentLevel = prefs.getInteger("CurrentLevel");
+		
+		if(currentLevel == 0){
+			currentLevel =1;
+		}
+		Gdx.app.log("highLevel ",highestLevel + "");
+		Gdx.app.log("currentLevel ", currentLevel + "");
 		
 		
 		logo=  new SpriteImage(new Vector2(getWidth()/2  - 125,getHeight() - 140), "levelselect");
@@ -75,19 +89,35 @@ public class LevelMenu extends SpriteImage {
 		int xCount = 0;
 		int yCount = 0;
 		
-		for( int i = 0; i< numLevels; i ++){
+		for( int i = 1; i<= numLevels; i ++){
 			LevelButton button;
-			if( i + 1 < highestLevel || i == 0){
+			if( i <= highestLevel ){
 				
-					button =  new LevelButton(position, true,i + 1);
+					button =  new LevelButton(position, true,i);
 			
 			}else {
-				button =  new LevelButton(position, false,i + 1);
+				button =  new LevelButton(position, false,i);
 			}
 			
 			
 			button.setX(225 + (xCount * (button.getWidth() + 10)));
 			button.setY((this.getHeight()- 270) - (yCount * (button.getHeight() + 10)));
+			
+			final LevelMenu proxy = this;
+			
+			button.addListener(new InputListener() {
+				public boolean touchDown(InputEvent event, float x, float y,int pointer, int button) {
+					int level = ((LevelButton)event.getTarget()).number;
+					proxy.game.loadNewLevel("data/levels/"+ level +".json", level);
+					proxy.game.toggleLevelMenu();
+					return true;
+				}
+
+				public void touchUp(InputEvent event, float x, float y,int pointer, int button) {
+					
+				}
+
+			});
 			
 			buttons.add(button);
 			
@@ -152,21 +182,9 @@ public class LevelMenu extends SpriteImage {
 		
 		if(prefs.getInteger("HigestLevelComplete") < level){
 			prefs.putInteger("HigestLevelComplete", level);
-			prefs.flush();
+			
 		}
-		
-		/*
-		prefs.putInteger("int", 1234);
-		prefs.putLong("long", Long.MAX_VALUE);
-		prefs.putFloat("float", 1.2345f);
-		prefs.putString("string", "test!");
-		 
-		if(prefs.getBoolean("bool") != true) throw new GdxRuntimeException("bool failed");
-		if(prefs.getInteger("int") != 1234) throw new GdxRuntimeException("int failed");
-		if(prefs.getLong("long") != Long.MAX_VALUE) throw new GdxRuntimeException("long failed");
-		if(prefs.getFloat("float") != 1.2345f) throw new GdxRuntimeException("float failed");
-		if(!prefs.getString("string").equals("test!")) throw new GdxRuntimeException("string failed");
-		*/
+		prefs.flush();
 		
 	}
 	

@@ -1,6 +1,7 @@
 package com.intelligentbeans.dare;
 import java.util.LinkedList;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -20,6 +21,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -44,19 +46,28 @@ public class DareGameScreen extends GameScreen {
 	Game game;
 	SpriteImage intro;
 	boolean started = false;
-	private String yourScoreName = "meters: 0";
+	private String yourScoreName = "month 1 of 9";
 	BitmapFont yourBitmapFontName;
 	private double distanceApartObstacles = 1000;
 	private ProgressBar progressBar;
 	private float levellenght;
 	private LevelMenu levelMenu;
 	private boolean won = false;
+	private int  currentLevel = 0;
+	 protected Preferences prefs;
 	public DareGameScreen(String level, Game game) {
 		super(level, game);
 		this.game = game;
 		
 		
+		prefs = Gdx.app.getPreferences("my-preferences");
+		currentLevel = prefs.getInteger("CurrentLevel");
 		
+		if (currentLevel == 0){
+			currentLevel = 1;
+			levelMenu.saveLevelProgress(1);
+		}
+		yourScoreName = "month "+currentLevel+" of 9";
 		//yourBitmapFontName = new BitmapFont();
 		yourBitmapFontName = new BitmapFont(Gdx.files.internal("data/fonts/meters.fnt"),Gdx.files.internal("data/fonts/meters.png"),false);
 		
@@ -99,28 +110,10 @@ public class DareGameScreen extends GameScreen {
 	}
 	
 	
-	 public void dispose() {
-         batch.dispose();
-         yourBitmapFontName.dispose();
-         world.dispose();
-         stage.dispose();
-         staticStage.dispose();
-         background.dispose();
-     	 debugRenderer.dispose();
-     	 
-     	 
-     	player = null;
-    	platformsl = null;
-    	obstacles = null;
-    	blocksl = null;
-    	spikesl = null;
-    	resetbutton = null;
-    	game = null;
-    	intro = null;
-    	yourScoreName  = null;
-    	yourBitmapFontName = null;
-    	progressBar = null;
-    	levelMenu = null;
+	@Override
+	public void dispose() {
+		super.dispose();
+      
 
  }
 	 
@@ -342,7 +335,7 @@ public class DareGameScreen extends GameScreen {
 		
 		
 		
-		
+		final DareGameScreen proxy = this;
 		
 	levelbutton.addListener(new InputListener() {
 			
@@ -352,11 +345,7 @@ public class DareGameScreen extends GameScreen {
 			}
 
 			public void touchUp(InputEvent event, float x, float y,int pointer, int button) {
-				if(levelMenu.isVisible()){
-					levelMenu.setVisible(false);
-				}else{
-					levelMenu.setVisible(true);
-				}
+				proxy.toggleLevelMenu();
 			}
 
 		});
@@ -377,7 +366,7 @@ public class DareGameScreen extends GameScreen {
 		resetbutton.setVisible(false);
 		
 		
-		levelMenu = new LevelMenu(new Vector2(0,0), staticStage);
+		levelMenu = new LevelMenu(new Vector2(0,0), staticStage, this);
 		levelMenu.setX(Gdx.graphics.getWidth()/2 - levelMenu.getWidth()/2);
 		levelMenu.setY(Gdx.graphics.getHeight()/2 - levelMenu.getHeight()/2);
 		levelMenu.setVisible(false);
@@ -385,27 +374,77 @@ public class DareGameScreen extends GameScreen {
 		
 	
 	}
-	
+	public void toggleLevelMenu(){
+		if(levelMenu.isVisible()){
+			levelMenu.setVisible(false);
+		}else{
+			levelMenu.setVisible(true);
+		}
+	}
 	
 	void win(){
 		///////////////////////////////////////////////////////////////////////////////////////WIN CODE HERE
 		if(!won){
 			won = true;
-			this.paused = true;
-			int nextlevel = 1;
+			paused = true;
 			
-			Preferences prefs = Gdx.app.getPreferences("my-preferences");
-			int currentLevel = prefs.getInteger("CurrentLevel");
 			if(currentLevel == 0){
 				currentLevel = 1;
 			}
 			if(currentLevel < 9){
-				levelMenu.saveLevelProgress(currentLevel + 1);
-				nextlevel = currentLevel + 1;
+				int nextlevel = currentLevel + 1;
 				
-				game.setScreen(new DareGameScreen("data/levels/"+ nextlevel +".json",game));
-				dispose();
+				loadNewLevel("data/levels/"+ nextlevel +".json", nextlevel );
+			
 			}
+		}
+	}
+	
+	
+	
+	
+	public void loadNewLevel(String level, int levelVal) {
+		SoundManager.getInstance().stopSong();
+		levelMenu.saveLevelProgress(levelVal);
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////HERE
+		Array<Body> iter = new Array<Body>();
+		world.getBodies(iter);
+		   for (int i =0 ; i < iter.size; i++) {
+		     Body body = iter.get(i);
+		     if(body!=null) {
+		       
+		          	world.destroyBody(body);
+		            body.setUserData(null);
+		            body = null;
+		         
+		     }
+		   }
+		   
+		   
+			player.remove();
+			Array<Actor> list = stage.getActors();
+		
+			removeActorsFromArray(list.toArray());
+			//removeActorsFromArray(obstacles.toArray(new Actor[obstacles.size()]));
+			stage.getActors();
+			platformsl.clear();
+			obstacles.clear();
+			blocksl.clear();
+			spikesl.clear();
+			
+			currentLevel = levelVal;
+			loadLevel(level);
+			yourScoreName = "month " + currentLevel+" of 9";
+			reset();
+	}
+	
+	protected void removeActorsFromArray(Actor[] actors){
+		for(int i = 0 ; i < actors.length ; i++){
+			actors[i].remove();
+			actors[i].clear();
+			actors[i].clearListeners();
+			actors[i].setVisible(false);
+			actors[i] = null;
 		}
 	}
 	void addLevelIndicator(){
@@ -433,7 +472,8 @@ public class DareGameScreen extends GameScreen {
 		followPlayer = true;
 		started = false;
 		meters = 0;
-		yourScoreName = "meters: 0";
+		won = false;
+		this.paused = false;
 		
 		intro.setVisible(true);
 		resetbutton.setVisible(false);
@@ -495,6 +535,7 @@ public class DareGameScreen extends GameScreen {
 	}
 	@Override
 	public void render(float delta) {
+		if(!distroyed){
 		super.render(delta);
 		
 		if(levelMenu.isVisible()){
@@ -533,10 +574,9 @@ public class DareGameScreen extends GameScreen {
 			
 				//Gdx.app.log( meters+ "/" + levellenght + "=", (meters/levellenght) * 100 + "" );
 				progressBar.setPercentage((meters/levellenght) * 100);
-				yourScoreName = "meters: " + meters;
-				
-				
+			
 				if(meters >= levellenght){
+					
 					win();
 				}
 			
@@ -571,6 +611,7 @@ public class DareGameScreen extends GameScreen {
 		yourBitmapFontName.setColor(58.0f, 0.0f, 0.0f, 1.0f);
 		yourBitmapFontName.draw(batch, yourScoreName,100, Gdx.graphics.getHeight() - 50); 
 		batch.end(); 
+		}
 	}
 	
 	

@@ -150,7 +150,14 @@ public class GameScreen implements Screen, ContactListener {
 
 		background.addActor(new Background(backgroundImage));
 		SoundManager.getInstance().loadSong(music);
+		
+		loadComplete();
+		
 
+	}
+	
+	public void loadComplete(){
+		
 	}
 	protected void itemCreationLoop(JSONGameItem item){
 		

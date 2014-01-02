@@ -55,6 +55,7 @@ public class DareGameScreen extends GameScreen {
 	private boolean won = false;
 	private int  currentLevel = 0;
 	 protected Preferences prefs;
+	 protected LoadingMenu loadingScreen;
 	public DareGameScreen(String level, Game game) {
 		super(level, game);
 		this.game = game;
@@ -105,7 +106,7 @@ public class DareGameScreen extends GameScreen {
 		}
 		
 		
-		
+
 		
 	}
 	
@@ -209,10 +210,17 @@ public class DareGameScreen extends GameScreen {
 		
 		levelMenu.setX(Gdx.graphics.getWidth()/2 - levelMenu.getWidth()/2);
 		levelMenu.setY(Gdx.graphics.getHeight()/2 - levelMenu.getHeight()/2);
+		loadingScreen.setX(Gdx.graphics.getWidth()/2 - levelMenu.getWidth()/2);
+		loadingScreen.setY(Gdx.graphics.getHeight()/2 - levelMenu.getHeight()/2);
+		
+		loadingScreen.updatePosition();
 
 	}
 	
-	
+	@Override
+	public void loadComplete(){
+		loadingScreen.setVisible(false);
+	}
 	/*************************************************************************************
 	 * This adds the user interface needed based on the type of device
 	 *************************************************************************************/
@@ -252,6 +260,7 @@ public class DareGameScreen extends GameScreen {
 		final ImageButton leftbutton = new ImageButton(leftup, leftdown);
 		final ImageButton rightbutton = new ImageButton(rightup, rightdown);
 		final ImageButton levelbutton = new ImageButton(levelup, leveldown);
+		loadingScreen = new LoadingMenu(new Vector2(0,0), this);
 		resetbutton = new ImageButton(resetup, resetdown);
 		addLevelIndicator();
 		
@@ -363,12 +372,16 @@ public class DareGameScreen extends GameScreen {
 		
 		staticStage.addActor(resetbutton);
 		staticStage.addActor(levelbutton);
+		staticStage.addActor(loadingScreen);
+		loadingScreen.setVisible(true);
 		resetbutton.setVisible(false);
 		
 		
 		levelMenu = new LevelMenu(new Vector2(0,0), staticStage, this);
 		levelMenu.setX(Gdx.graphics.getWidth()/2 - levelMenu.getWidth()/2);
 		levelMenu.setY(Gdx.graphics.getHeight()/2 - levelMenu.getHeight()/2);
+		loadingScreen.setX(Gdx.graphics.getWidth()/2 - levelMenu.getWidth()/2);
+		loadingScreen.setY(Gdx.graphics.getHeight()/2 - levelMenu.getHeight()/2);
 		levelMenu.setVisible(false);
 		
 		
@@ -403,39 +416,60 @@ public class DareGameScreen extends GameScreen {
 	
 	
 	
-	public void loadNewLevel(String level, int levelVal) {
-		SoundManager.getInstance().stopSong();
-		levelMenu.saveLevelProgress(levelVal);
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////HERE
-		Array<Body> iter = new Array<Body>();
-		world.getBodies(iter);
-		   for (int i =0 ; i < iter.size; i++) {
-		     Body body = iter.get(i);
-		     if(body!=null) {
-		       
-		          	world.destroyBody(body);
-		            body.setUserData(null);
-		            body = null;
-		         
-		     }
-		   }
-		   
-		   
-			player.remove();
-			Array<Actor> list = stage.getActors();
+	public void loadNewLevel(final String level, final int levelVal) {
 		
-			removeActorsFromArray(list.toArray());
-			//removeActorsFromArray(obstacles.toArray(new Actor[obstacles.size()]));
-			stage.getActors();
-			platformsl.clear();
-			obstacles.clear();
-			blocksl.clear();
-			spikesl.clear();
-			
-			currentLevel = levelVal;
-			loadLevel(level);
-			yourScoreName = "month " + currentLevel+" of 9";
-			reset();
+		loadingScreen.setVisible(true);
+		loadingScreen.toFront();
+		
+		
+		
+		
+		float delay = .3f; // seconds
+
+		Timer.schedule(new Task(){
+		    @Override
+		    public void run() {
+		        // Do your work
+		    	
+		    	
+		    	SoundManager.getInstance().stopSong();
+				levelMenu.saveLevelProgress(levelVal);
+				////////////////////////////////////////////////////////////////////////////////////////////////////////////////HERE
+				Array<Body> iter = new Array<Body>();
+				world.getBodies(iter);
+				   for (int i =0 ; i < iter.size; i++) {
+				     Body body = iter.get(i);
+				     if(body!=null) {
+				       
+				          	world.destroyBody(body);
+				            body.setUserData(null);
+				            body = null;
+				         
+				     }
+				   }
+				   
+				   
+					player.remove();
+					Array<Actor> list = stage.getActors();
+				
+					removeActorsFromArray(list.toArray());
+					//removeActorsFromArray(obstacles.toArray(new Actor[obstacles.size()]));
+					stage.getActors();
+					platformsl.clear();
+					obstacles.clear();
+					blocksl.clear();
+					spikesl.clear();
+					
+					currentLevel = levelVal;
+					loadLevel(level);
+					yourScoreName = "month " + currentLevel+" of 9";
+					reset();
+		    }
+		}, delay);
+		
+		
+		
+		
 	}
 	
 	protected void removeActorsFromArray(Actor[] actors){
@@ -538,6 +572,13 @@ public class DareGameScreen extends GameScreen {
 		if(!distroyed){
 		super.render(delta);
 		
+		batch.begin(); 
+		yourBitmapFontName.setColor(58.0f, 0.0f, 0.0f, 1.0f);
+		yourBitmapFontName.draw(batch, yourScoreName,100, Gdx.graphics.getHeight() - 50); 
+		batch.end(); 
+		
+		loadingScreen.toFront();
+		
 		if(levelMenu.isVisible()){
 			paused = true;
 		}else{
@@ -607,10 +648,7 @@ public class DareGameScreen extends GameScreen {
 		
 		}
 		
-		batch.begin(); 
-		yourBitmapFontName.setColor(58.0f, 0.0f, 0.0f, 1.0f);
-		yourBitmapFontName.draw(batch, yourScoreName,100, Gdx.graphics.getHeight() - 50); 
-		batch.end(); 
+		
 		}
 	}
 	

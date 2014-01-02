@@ -3,219 +3,100 @@ z1.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-levelMenu
+boarder
   rotate: false
   xy: 0, 0
+  size: 1024, 1024
+  orig: 1024, 1024
+  offset: 0, 0
+  index: -1
+levelMenu
+  rotate: false
+  xy: 1026, 0
   size: 700, 474
   orig: 700, 474
   offset: 0, 0
   index: -1
 intro-mobile
   rotate: false
-  xy: 0, 476
+  xy: 1026, 476
   size: 700, 474
   orig: 700, 474
   offset: 0, 0
   index: -1
-platform
-  rotate: false
-  xy: 702, 0
-  size: 422, 500
-  orig: 422, 500
-  offset: 0, 0
-  index: -1
-leftButtonDown
-  rotate: false
-  xy: 1126, 0
-  size: 456, 456
-  orig: 456, 456
-  offset: 0, 0
-  index: -1
-leftButton
-  rotate: false
-  xy: 1584, 0
-  size: 456, 456
-  orig: 456, 456
-  offset: 0, 0
-  index: -1
-intro
-  rotate: false
-  xy: 702, 502
-  size: 400, 360
-  orig: 400, 360
-  offset: 0, 0
-  index: -1
 rightButtonDown
   rotate: false
-  xy: 1126, 458
+  xy: 1728, 0
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 rightButton
   rotate: false
-  xy: 1126, 716
+  xy: 1728, 476
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 jumpButtonDown
   rotate: false
-  xy: 1384, 458
-  size: 256, 256
-  orig: 256, 256
-  offset: 0, 0
-  index: -1
-jumpButton
-  rotate: false
-  xy: 1384, 716
+  xy: 1728, 734
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 levelbar
   rotate: false
-  xy: 0, 952
+  xy: 1026, 952
   size: 527, 59
   orig: 527, 59
   offset: 0, 0
   index: -1
 walk2
   rotate: false
-  xy: 1642, 458
+  xy: 1728, 258
   size: 142, 169
   orig: 142, 169
   offset: 0, 0
   index: -1
 walk1
   rotate: false
-  xy: 1786, 458
+  xy: 1872, 258
   size: 142, 169
   orig: 142, 169
-  offset: 0, 0
-  index: -1
-sadwalk2
-  rotate: false
-  xy: 1642, 629
-  size: 142, 169
-  orig: 142, 169
-  offset: 0, 0
-  index: -1
-sadwalk1
-  rotate: false
-  xy: 1642, 800
-  size: 142, 169
-  orig: 142, 169
-  offset: 0, 0
-  index: -1
-sadleftwalk2
-  rotate: false
-  xy: 1786, 629
-  size: 142, 169
-  orig: 142, 169
-  offset: 0, 0
-  index: -1
-sadleftwalk1
-  rotate: false
-  xy: 1786, 800
-  size: 142, 169
-  orig: 142, 169
-  offset: 0, 0
-  index: -1
-levelselect
-  rotate: false
-  xy: 702, 864
-  size: 239, 87
-  orig: 239, 87
-  offset: 0, 0
-  index: -1
-resetButtonDown
-  rotate: false
-  xy: 702, 953
-  size: 177, 59
-  orig: 177, 59
-  offset: 0, 0
-  index: -1
-resetButton
-  rotate: false
-  xy: 943, 864
-  size: 177, 59
-  orig: 177, 59
   offset: 0, 0
   index: -1
 spikes
   rotate: false
-  xy: 529, 952
+  xy: 1555, 952
   size: 142, 55
   orig: 142, 55
   offset: 0, 0
   index: -1
-egg-broken
-  rotate: false
-  xy: 943, 925
-  size: 95, 53
-  orig: 95, 53
-  offset: 0, 0
-  index: -1
 levelprogress
   rotate: false
-  xy: 1126, 974
+  xy: 1728, 992
   size: 219, 21
   orig: 219, 21
   offset: 0, 0
   index: -1
-levelOptionInactive
-  rotate: false
-  xy: 1040, 925
-  size: 76, 59
-  orig: 76, 59
-  offset: 0, 0
-  index: -1
-levelOptionActive
-  rotate: false
-  xy: 1930, 458
-  size: 76, 59
-  orig: 76, 59
-  offset: 0, 0
-  index: -1
-levelButtonDown
-  rotate: false
-  xy: 1930, 519
-  size: 76, 59
-  orig: 76, 59
-  offset: 0, 0
-  index: -1
-levelButton
-  rotate: false
-  xy: 1930, 629
-  size: 76, 59
-  orig: 76, 59
-  offset: 0, 0
-  index: -1
 egg
   rotate: false
-  xy: 1930, 690
+  xy: 1986, 0
   size: 56, 77
   orig: 56, 77
   offset: 0, 0
   index: -1
-box
-  rotate: false
-  xy: 1930, 800
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
 block
   rotate: false
-  xy: 1384, 974
+  xy: 1728, 429
   size: 96, 34
   orig: 96, 34
   offset: 0, 0
   index: -1
 levelindicator
   rotate: false
-  xy: 881, 953
+  xy: 1986, 79
   size: 50, 59
   orig: 50, 59
   offset: 0, 0
@@ -225,52 +106,185 @@ z2.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-leftwalk2
+platform
   rotate: false
   xy: 0, 0
+  size: 422, 500
+  orig: 422, 500
+  offset: 0, 0
+  index: -1
+leftButtonDown
+  rotate: false
+  xy: 424, 0
+  size: 456, 456
+  orig: 456, 456
+  offset: 0, 0
+  index: -1
+leftButton
+  rotate: false
+  xy: 424, 458
+  size: 456, 456
+  orig: 456, 456
+  offset: 0, 0
+  index: -1
+intro
+  rotate: false
+  xy: 0, 502
+  size: 400, 360
+  orig: 400, 360
+  offset: 0, 0
+  index: -1
+jumpButton
+  rotate: false
+  xy: 882, 0
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+sadwalk2
+  rotate: false
+  xy: 882, 258
+  size: 142, 169
+  orig: 142, 169
+  offset: 0, 0
+  index: -1
+sadwalk1
+  rotate: false
+  xy: 882, 429
+  size: 142, 169
+  orig: 142, 169
+  offset: 0, 0
+  index: -1
+sadleftwalk2
+  rotate: false
+  xy: 882, 600
+  size: 142, 169
+  orig: 142, 169
+  offset: 0, 0
+  index: -1
+sadleftwalk1
+  rotate: false
+  xy: 882, 771
+  size: 142, 169
+  orig: 142, 169
+  offset: 0, 0
+  index: -1
+leftwalk2
+  rotate: false
+  xy: 1140, 0
   size: 142, 169
   orig: 142, 169
   offset: 0, 0
   index: -1
 leftwalk1
   rotate: false
-  xy: 144, 0
+  xy: 1284, 0
   size: 142, 169
   orig: 142, 169
   offset: 0, 0
   index: -1
 left
   rotate: false
-  xy: 288, 0
+  xy: 1428, 0
   size: 142, 169
   orig: 142, 169
   offset: 0, 0
   index: -1
 player-sad
   rotate: false
-  xy: 432, 0
+  xy: 1572, 0
   size: 142, 165
   orig: 142, 165
   offset: 0, 0
   index: -1
 leftplayer-sad
   rotate: false
-  xy: 576, 0
+  xy: 1716, 0
   size: 142, 165
   orig: 142, 165
   offset: 0, 0
   index: -1
 player-happy
   rotate: false
-  xy: 720, 0
+  xy: 1860, 0
   size: 138, 164
   orig: 138, 164
   offset: 0, 0
   index: -1
 leftplayer-happy
   rotate: false
-  xy: 860, 0
+  xy: 1140, 171
   size: 138, 164
   orig: 138, 164
+  offset: 0, 0
+  index: -1
+loading
+  rotate: false
+  xy: 1280, 171
+  size: 490, 105
+  orig: 490, 105
+  offset: 0, 0
+  index: -1
+levelselect
+  rotate: false
+  xy: 0, 864
+  size: 239, 87
+  orig: 239, 87
+  offset: 0, 0
+  index: -1
+box
+  rotate: false
+  xy: 0, 953
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+resetButtonDown
+  rotate: false
+  xy: 241, 864
+  size: 177, 59
+  orig: 177, 59
+  offset: 0, 0
+  index: -1
+resetButton
+  rotate: false
+  xy: 241, 925
+  size: 177, 59
+  orig: 177, 59
+  offset: 0, 0
+  index: -1
+levelOptionInactive
+  rotate: false
+  xy: 66, 953
+  size: 76, 59
+  orig: 76, 59
+  offset: 0, 0
+  index: -1
+levelOptionActive
+  rotate: false
+  xy: 144, 953
+  size: 76, 59
+  orig: 76, 59
+  offset: 0, 0
+  index: -1
+levelButtonDown
+  rotate: false
+  xy: 424, 916
+  size: 76, 59
+  orig: 76, 59
+  offset: 0, 0
+  index: -1
+levelButton
+  rotate: false
+  xy: 502, 916
+  size: 76, 59
+  orig: 76, 59
+  offset: 0, 0
+  index: -1
+egg-broken
+  rotate: false
+  xy: 580, 916
+  size: 95, 53
+  orig: 95, 53
   offset: 0, 0
   index: -1

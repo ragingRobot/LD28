@@ -4,7 +4,7 @@
 	itemType: LevelDetail,
 	background:"data/backgrounds/background.jpg",
 	lights: false,
-	levellenght: 50
+	levellenght: 65
 
 }
 ,

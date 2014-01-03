@@ -9,11 +9,14 @@ import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
+import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 
 
+
 public class MainActivity extends AndroidApplication {
+	private boolean adsEnabled = true;
     @Override
     public void onCreate(Bundle savedInstanceState) {
     	/*
@@ -41,36 +44,36 @@ public class MainActivity extends AndroidApplication {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         // Create the libgdx View
-        View gameView = initializeForView(new Dare(), false);
+        View gameView = initializeForView(new Dare(), true);
         // Hook it all up
         setContentView(layout);
         
         // Add the libgdx view
         layout.addView(gameView);
         
-        /*
-        // Create and setup the AdMob view
-        AdView adView = new AdView(this);
-        adView.setAdUnitId("ca-app-pub-8338177560598610/2755578680");
-        adView.setAdSize(AdSize.BANNER);
-
-        
-       
-        // Add the AdMob view
-        RelativeLayout.LayoutParams adParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        adParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-        adParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        layout.addView(adView, adParams);
-
+       if(adsEnabled){
+		        // Create and setup the AdMob view
+		        AdView adView = new AdView(this);
+		        adView.setAdUnitId("ca-app-pub-8338177560598610/2755578680");
+		        adView.setAdSize(AdSize.BANNER);
+		
+		        
+		       
+		        // Add the AdMob view
+		        RelativeLayout.LayoutParams adParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+		        adParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		        adParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+		        layout.addView(adView, adParams);
+		
+		      
+		    
+		        //WHY DOESNT THIS WORK  :(
+		        // Initiate a generic request.
+		        AdRequest adRequest = new AdRequest.Builder().build();
+		        // Load the adView with the ad request.
+		        adView.loadAd(adRequest);
+       }
       
-    
-        //WHY DOESNT THIS WORK  :(
-        // Initiate a generic request.
-        AdRequest adRequest = new AdRequest.Builder().build();
-  
-        // Load the adView with the ad request.
-        adView.loadAd(adRequest);
-        */
         
         
     }

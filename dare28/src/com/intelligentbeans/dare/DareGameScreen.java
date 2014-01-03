@@ -54,8 +54,9 @@ public class DareGameScreen extends GameScreen {
 	private LevelMenu levelMenu;
 	private boolean won = false;
 	private int  currentLevel = 0;
-	 protected Preferences prefs;
-	 protected LoadingMenu loadingScreen;
+	protected Preferences prefs;
+	protected LoadingMenu loadingScreen;
+	 
 	public DareGameScreen(String level, Game game) {
 		super(level, game);
 		this.game = game;
@@ -92,9 +93,6 @@ public class DareGameScreen extends GameScreen {
 		intro.setX((Gdx.graphics.getWidth()/2)- (intro.getWidth()/2));
 		intro.setY((Gdx.graphics.getHeight()/2) - (intro.getHeight()/2));
 		staticStage.addActor(intro);
-		
-		
-		SoundManager.getInstance().loadSong("data/sounds/test.mp3");
 		
 		
 		Gdx.app.log("test", Gdx.graphics.getWidth() + "");
@@ -219,6 +217,7 @@ public class DareGameScreen extends GameScreen {
 	
 	@Override
 	public void loadComplete(){
+		SoundManager.getInstance().loadSong("data/sounds/test.mp3");
 		loadingScreen.setVisible(false);
 	}
 	/*************************************************************************************
@@ -592,18 +591,22 @@ public class DareGameScreen extends GameScreen {
 			
 		}
 		
-		if(player.getX() > obstacles.get( obstacles.size() - 3).getX()){
-			
-			PhysicalImage firstObstacle = obstacles.remove(0);
-			firstObstacle.body.setTransform((float) ((obstacles.get( obstacles.size() - 1).getX() + distanceApartObstacles ) * GameScreen.WORLD_TO_BOX), firstObstacle.body.getPosition().y, firstObstacle.body.getAngle());
-			obstacles.add(firstObstacle);
-			
-			if(firstObstacle instanceof Block){
-				Random random = new Random();
-				((Block) firstObstacle).setMoving(random.nextBoolean());
-			}
-		}
+		Camera camera = stage.getCamera();
 		
+		if(player != null){
+		
+			if(player.getX() > obstacles.get( obstacles.size() - 3).getX()){
+				
+				PhysicalImage firstObstacle = obstacles.remove(0);
+				firstObstacle.body.setTransform((float) ((obstacles.get( obstacles.size() - 1).getX() + distanceApartObstacles ) * GameScreen.WORLD_TO_BOX), firstObstacle.body.getPosition().y, firstObstacle.body.getAngle());
+				obstacles.add(firstObstacle);
+				
+				if(firstObstacle instanceof Block){
+					Random random = new Random();
+					((Block) firstObstacle).setMoving(random.nextBoolean());
+				}
+			}
+	
 		
 		if(platformsl.size() > 4){
 			//right trigger
@@ -633,7 +636,7 @@ public class DareGameScreen extends GameScreen {
 				platformsl.add(0,last);
 			}
 		}
-		Camera camera = stage.getCamera();
+		
 		// pan the camera to the player
 		if (player != null && followPlayer) {
 			camera.position.y += (player.getY() - camera.position.y + 2f) * .08f   + 10;
@@ -642,7 +645,7 @@ public class DareGameScreen extends GameScreen {
 
 		}
 		
-		
+		}
 		
 		camera.update();
 		

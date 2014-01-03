@@ -3,6 +3,7 @@ package com.intelligentbeans.boilerplate;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.FPSLogger;
@@ -50,6 +51,7 @@ public class GameScreen implements Screen, ContactListener {
 	protected Array<JSONGameItem> items;
 	protected boolean paused = false;
 	protected boolean distroyed = false;
+	AssetManager manager;
 	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// SETUP AND SCREEN RESIZE STUFF
 	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -76,13 +78,19 @@ public class GameScreen implements Screen, ContactListener {
 		logger = new FPSLogger();
 		world = new World(new Vector2(0, -10f), true);
 		debugRenderer = new Box2DDebugRenderer();
-
+		manager = new AssetManager();
+		
+		//TextureAtlasLoader
+		manager.load("data/z/dare-textures", TextureAtlas.class);
+		
+		
+		
 
 		Gdx.input.setInputProcessor(staticStage);
 		world.setContactListener(this);
 
 		addInterface();
-		loadLevel(level);
+		
 
 		stage.addAction(Actions.alpha(0));
 		background.addAction(Actions.alpha(0));
@@ -92,6 +100,9 @@ public class GameScreen implements Screen, ContactListener {
 		staticStage.addAction(Actions.fadeIn(.5f));
 		background.addAction(Actions.fadeIn(.5f));
 		stage.addAction(Actions.fadeIn(.5f));
+		
+		
+		
 	}
 
 	/*************************************************************************************
@@ -106,7 +117,7 @@ public class GameScreen implements Screen, ContactListener {
 
 	@Override
 	public void show() {
-
+		loadLevel(level);
 	}
 	
 	
@@ -180,6 +191,12 @@ public class GameScreen implements Screen, ContactListener {
 	 *************************************************************************************/
 	@Override
 	public void render(float delta) {
+		
+		 if(manager.update()) {
+	         // we are done loading, let's move to another screen!
+	      }
+		 
+		 
 		if(!distroyed){
 				Camera camera = stage.getCamera();
 			
